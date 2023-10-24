@@ -1,0 +1,194 @@
+﻿[
+  {
+    "value": "ar",
+    "label": "阿拉伯语"
+  },
+  {
+    "value": "bg",
+    "label": "保加利亚语"
+  },
+  {
+    "value": "ca",
+    "label": "加泰罗尼亚语"
+  },
+  {
+    "value": "zh-Hans",
+    "label": "中文（简体）"
+  },
+  {
+    "value": "zh-Hant",
+    "label": "中文（繁体）"
+  },
+  {
+    "value": "cs",
+    "label": "捷克语"
+  },
+  {
+    "value": "da",
+    "label": "丹麦语"
+  },
+  {
+    "value": "nl",
+    "label": "荷兰语"
+  },
+  {
+    "value": "en",
+    "label": "英语"
+  },
+  {
+    "value": "et",
+    "label": "爱沙尼亚语"
+  },
+  {
+    "value": "fi",
+    "label": "芬兰语"
+  },
+  {
+    "value": "fr",
+    "label": "法语"
+  },
+  {
+    "value": "de",
+    "label": "德语"
+  },
+  {
+    "value": "el",
+    "label": "希腊语"
+  },
+  {
+    "value": "ht",
+    "label": "海地克里奥尔语"
+  },
+  {
+    "value": "he",
+    "label": "希伯来语"
+  },
+  {
+    "value": "hi",
+    "label": "印地语"
+  },
+  {
+    "value": "mww",
+    "label": "白苗文"
+  },
+  {
+    "value": "hu",
+    "label": "匈牙利语"
+  },
+  {
+    "value": "id",
+    "label": "印度尼西亚语"
+  },
+  {
+    "value": "it",
+    "label": "意大利语"
+  },
+  {
+    "value": "ja",
+    "label": "日语"
+  },
+  {
+    "value": "sw",
+    "label": "斯瓦希里语"
+  },
+  {
+    "value": "tlh",
+    "label": "克林贡语"
+  },
+  {
+    "value": "tlh-Qaak",
+    "label": "克林贡语（pIqaD）"
+  },
+  {
+    "value": "ko",
+    "label": "韩语"
+  },
+  {
+    "value": "lv",
+    "label": "拉脱维亚语"
+  },
+  {
+    "value": "lt",
+    "label": "立陶宛语"
+  },
+  {
+    "value": "ms",
+    "label": "马来语"
+  },
+  {
+    "value": "mt",
+    "label": "马耳他语"
+  },
+  {
+    "value": "no",
+    "label": "挪威语"
+  },
+  {
+    "value": "fa",
+    "label": "波斯语"
+  },
+  {
+    "value": "pl",
+    "label": "波兰语"
+  },
+  {
+    "value": "pt",
+    "label": "葡萄牙语"
+  },
+  {
+    "value": "otq",
+    "label": "克雷塔罗奥托米语"
+  },
+  {
+    "value": "ro",
+    "label": "罗马尼亚语"
+  },
+  {
+    "value": "ru",
+    "label": "俄语"
+  },
+  {
+    "value": "sk",
+    "label": "斯洛伐克语"
+  },
+  {
+    "value": "sl",
+    "label": "斯洛文尼亚语"
+  },
+  {
+    "value": "es",
+    "label": "西班牙语"
+  },
+  {
+    "value": "sv",
+    "label": "瑞典语"
+  },
+  {
+    "value": "th",
+    "label": "泰语"
+  },
+  {
+    "value": "tr",
+    "label": "土耳其语"
+  },
+  {
+    "value": "uk",
+    "label": "乌克兰语"
+  },
+  {
+    "value": "ur",
+    "label": "乌尔都语"
+  },
+  {
+    "value": "vi",
+    "label": "越南语"
+  },
+  {
+    "value": "cy",
+    "label": "威尔士语"
+  },
+  {
+    "value": "yua",
+    "label": "尤卡坦玛雅语"
+  }
+]

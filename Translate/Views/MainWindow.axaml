@@ -1,0 +1,69 @@
+<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:vm="using:Translate.ViewModels"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+        x:Class="Translate.Views.MainWindow"
+        x:DataType="vm:MainWindowViewModel"
+        Icon="/Assets/translate.ico"
+        ExtendClientAreaToDecorationsHint="True"
+        ExtendClientAreaChromeHints="NoChrome"
+        ExtendClientAreaTitleBarHeightHint="-1"
+        SystemDecorations="None"
+        WindowStartupLocation="CenterScreen"
+        Width="100"
+        MinWidth="100"
+        MaxWidth="100"
+        Height="50"
+        MaxHeight="50"
+        MinHeight="50"
+        Title="Translate">
+
+    <Window.Styles>
+        <Style Selector="Window">
+            <Setter Property="BorderThickness" Value="0" />
+            <Setter Property="Padding" Value="0" />
+            <Setter Property="Background" Value="Transparent" />
+            <Setter Property="BorderBrush" Value="Transparent" />
+        </Style>
+    </Window.Styles>
+
+    <Design.DataContext>
+        <vm:MainWindowViewModel />
+    </Design.DataContext>
+
+    <Border Width="{Binding Width}" DoubleTapped="InputElement_OnDoubleTapped"
+            PointerExited="MainBorder_OnPointerExited" CornerRadius="500"
+            Name="MainBorder"
+            Background="Transparent">
+        <Grid Width="{Binding Width}">
+            <Image IsVisible="{Binding !EditIsVisible}" Name="TranslateLogo" Source="../Assets/translate.png"></Image>
+            <Border Width="{Binding Width}" 
+                    IsVisible="{Binding EditIsVisible}" 
+                    Background="Transparent"
+                    Name="TextBorder">
+                <TextBox KeyDown="TextBox_OnKeyDown" Width="{Binding Width}" Name="TextBox"
+                         IsVisible="{Binding EditIsVisible}">
+                </TextBox>
+            </Border>
+        </Grid>
+        <Border.ContextFlyout>
+            <Flyout Placement="Top" ShowMode="Standard">
+                <StackPanel>
+                    <WrapPanel>
+                        <TextBlock FontSize="16" Text="{Binding TranslateDto.Language}"></TextBlock>
+                        <TextBlock Text=":"></TextBlock>
+                    </WrapPanel>
+                    <TextBox Text="{Binding TranslateDto.Value}"></TextBox>
+                    <Border Height="1" Background="Black"></Border>
+                    <WrapPanel>
+                        <TextBlock FontSize="16" Text="{Binding TranslateDto.TargetLanguage}"></TextBlock>
+                        <TextBlock Text=":"></TextBlock>
+                    </WrapPanel>
+                    <TextBox Text="{Binding TranslateDto.Result}"></TextBox>
+                </StackPanel>
+            </Flyout>
+        </Border.ContextFlyout>
+    </Border>
+</Window>

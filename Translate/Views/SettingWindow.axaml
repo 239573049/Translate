@@ -1,0 +1,110 @@
+﻿<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:viewModels="clr-namespace:Translate.ViewModels"
+        mc:Ignorable="d" d:DesignWidth="500" d:DesignHeight="450"
+        x:Class="Translate.Views.SettingWindow"
+        RequestedThemeVariant="Dark"
+        TransparencyLevelHint="AcrylicBlur"
+        ExtendClientAreaToDecorationsHint="True"
+        Background="Transparent"
+        Width="500"
+        MinWidth="500"
+        WindowStartupLocation="CenterScreen"
+        Height="560"
+        MinHeight="560"
+        Title="SettingWindow"
+        x:DataType="viewModels:SettingWindowViewModel">
+    <Design.DataContext>
+        <!-- This only sets the DataContext for the previewer in an IDE,
+             to set the actual DataContext for runtime, set the DataContext property in code (look at App.axaml.cs) -->
+        <viewModels:SettingWindowViewModel />
+    </Design.DataContext>
+    <Panel>
+        <ExperimentalAcrylicBorder IsHitTestVisible="False">
+            <ExperimentalAcrylicBorder.Material>
+                <ExperimentalAcrylicMaterial
+                    BackgroundSource="Digger"
+                    TintColor="Black"
+                    TintOpacity="1"
+                    MaterialOpacity="0.65" />
+            </ExperimentalAcrylicBorder.Material>
+        </ExperimentalAcrylicBorder>
+        <TabControl Name="TabControl" Margin="10" TabStripPlacement="Top">
+            <TabItem Header="翻译设置">
+                <StackPanel Spacing="10">
+                    <TextBlock FontSize="25" FontWeight="Bold">
+                        翻译设置
+                    </TextBlock>
+                    <Border Height="1" Background="Black"></Border>
+                    <WrapPanel >
+                        <TextBlock Margin="5" FontWeight="Bold">当前使用翻译：</TextBlock>
+                        <ComboBox SelectedValue="{Binding SelectSetting}" Width="150"
+                                  ItemsSource="{Binding SelectSettingTranslate}">
+                            <ComboBox.ItemTemplate>
+                                <DataTemplate>
+                                    <TextBlock Text="{Binding Title}"></TextBlock>
+                                </DataTemplate>
+                            </ComboBox.ItemTemplate>
+                        </ComboBox>
+                    </WrapPanel>
+                    
+                    <WrapPanel>
+                        <WrapPanel IsVisible="{Binding !AutomaticDetection}">
+                            <TextBlock Margin="5">选择语言:</TextBlock>
+                            <ComboBox SelectedValue="{Binding Language}" Width="150"
+                                      ItemsSource="{Binding Languages}">
+                                <ComboBox.ItemTemplate>
+                                    <DataTemplate>
+                                        <TextBlock Text="{Binding label}"></TextBlock>
+                                    </DataTemplate>
+                                </ComboBox.ItemTemplate>
+                            </ComboBox>
+                        </WrapPanel>
+                        <TextBlock Margin="5">目标语言:</TextBlock>
+                        <ComboBox SelectedValue="{Binding TargetLanguage}" Width="150"
+                                  ItemsSource="{Binding Languages}">
+                            <ComboBox.ItemTemplate>
+                                <DataTemplate>
+                                    <TextBlock Text="{Binding label}"></TextBlock>
+                                </DataTemplate>
+                            </ComboBox.ItemTemplate>
+                        </ComboBox>
+                    </WrapPanel>
+                    <WrapPanel>
+                    </WrapPanel>
+                    <CheckBox
+                        Content="自动翻译"
+                        IsChecked="{Binding AutomaticDetection}"
+                        Theme="{DynamicResource CardCheckBox}" />
+                    <Border Height="1" Background="Black"></Border>
+                    <TextBlock>微软翻译设置</TextBlock>
+                    <TextBox Text="{Binding MicrosoftEndpoint}" Watermark="请输入您的端点（Endpoint）" />
+                    <TextBox Text="{Binding MicrosoftKey}" Watermark="请输入您的Key（Key）" />
+                    <TextBox Text="{Binding MicrosoftLocation}" Watermark="请输入您的location（location）可空" />
+                    <Border Height="1" Background="Black"></Border>
+                    <TextBlock>有道翻译设置</TextBlock>
+                    <TextBox Watermark="请输入您的AppKey（AppKey）" />
+                    <TextBox Watermark="请输入您的AppId（AppId）" />
+                    <Border Height="1" Background="Black"></Border>
+                    <Button Click="Save_OnClick" Classes="Success">保存设置</Button>
+                </StackPanel>
+
+            </TabItem>
+            <TabItem Header="系统设置">
+                <StackPanel Spacing="15">
+                    <TextBlock Margin="0,10,0,0" TextWrapping="WrapWithOverflow">
+                        这是一款使用Avalonia开发的跨平台翻译小工具,如果您有更好的意见可以联系我！
+                    </TextBlock>
+                    <TextBlock>
+                        联系方式：
+                        QQ:239573049
+                    </TextBlock>
+                    <TextBlock>当前版本：0.0.0.1</TextBlock>
+                    <Button>检查更新</Button>
+                </StackPanel>
+            </TabItem>
+        </TabControl>
+    </Panel>
+</Window>

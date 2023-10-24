@@ -1,0 +1,30 @@
+<Application xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             x:Class="Translate.App"
+             xmlns:local="using:Translate"
+             RequestedThemeVariant="Default">
+             <!-- "Default" ThemeVariant follows system theme variant. "Dark" or "Light" are other available options. -->
+
+    <Application.DataTemplates>
+        <local:ViewLocator/>
+    </Application.DataTemplates>
+  
+    <Application.Styles>
+        <FluentTheme />
+        <StyleInclude Source="avares://Semi.Avalonia/Themes/Index.axaml" />
+    </Application.Styles>
+             <TrayIcon.Icons>
+                 <TrayIcons>
+                     <TrayIcon Icon="/Assets/translate.ico" 
+                               ToolTipText="翻译小工具">
+                         <TrayIcon.Menu>
+                             <NativeMenu>
+                                 <NativeMenuItem Click="OpenSetting_OnClick" Header="系统设置"   />
+                                 <NativeMenuItemSeparator />
+                                 <NativeMenuItem Header="退出程序"  Click="Exit_OnClick"/>
+                             </NativeMenu>
+                         </TrayIcon.Menu>
+                     </TrayIcon>
+                 </TrayIcons>
+             </TrayIcon.Icons>
+</Application>
