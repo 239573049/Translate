@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Text.Json;
+using Avalonia;
 using Avalonia.Controls;
 using Avalonia.Controls.Notifications;
 using Avalonia.Interactivity;
@@ -61,17 +62,18 @@ public partial class SettingWindow : Window
 
     private SettingWindowViewModel ViewModel => (DataContext as SettingWindowViewModel)!;
 
+    public override void Show()
+    {
+        base.Show();
+        
+        _manager = new WindowNotificationManager(this) { MaxItems = 3 };
+
+    }
 
     private void Save_OnClick(object? sender, RoutedEventArgs e)
     {
         try
         {
-            if (_manager == null)
-            {
-                var topLevel = GetTopLevel(this);
-                _manager = new WindowNotificationManager(topLevel) { MaxItems = 3 };
-            }
-
             var options = TranslateContext.GetService<SystemOptions>();
 
             options.LanguageService = ViewModel.SelectSetting.Value;

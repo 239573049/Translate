@@ -24,13 +24,15 @@ public partial class MainWindow : Window
     {
         InitializeComponent();
 
+        ShowInTaskbar = false;
+        
         Task.Run(async () =>
         {
             while (!_cancellationToken.IsCancellationRequested)
             {
                 try
                 {
-                    await Task.Delay(3000);
+                    await Task.Delay(2000);
                     Dispatcher.UIThread.Invoke(() =>
                     {
                         if (IsVisible)
@@ -158,4 +160,5 @@ public partial class MainWindow : Window
             }
         }
     }
+    
 }

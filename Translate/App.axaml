@@ -19,9 +19,9 @@
                                ToolTipText="翻译小工具">
                          <TrayIcon.Menu>
                              <NativeMenu>
-                                 <NativeMenuItem Click="OpenSetting_OnClick" Header="系统设置"   />
+                                 <NativeMenuItem Icon="../Assets/setting.png" Click="OpenSetting_OnClick" Header="系统设置"   />
                                  <NativeMenuItemSeparator />
-                                 <NativeMenuItem Header="退出程序"  Click="Exit_OnClick"/>
+                                 <NativeMenuItem Icon="../Assets/exit.png" Header="退出程序"  Click="Exit_OnClick"/>
                              </NativeMenu>
                          </TrayIcon.Menu>
                      </TrayIcon>
