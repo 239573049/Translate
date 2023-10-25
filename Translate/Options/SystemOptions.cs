@@ -26,7 +26,7 @@ public class SystemOptions
     /// 内容语种
     /// </summary>
     public string Language { get; set; }
-    
+
     /// <summary>
     /// 自动识别
     /// </summary>
@@ -36,4 +36,19 @@ public class SystemOptions
     /// 当前语种服务
     /// </summary>
     public string LanguageService { get; set; } = Constant.MicrosoftLanguage;
+
+    /// <summary>
+    /// Ai Key
+    /// </summary>
+    public string AiKey { get; set; }
+
+    /// <summary>
+    /// Ai的端点
+    /// </summary>
+    public string AiEndpoint { get; set; } = "https://api.openai.com/v1/chat/completions";
+
+    /// <summary>
+    /// Ai模型
+    /// </summary>
+    public string AiModel { get; set; } = "gpt-3.5-turbo";
 }

@@ -23,8 +23,6 @@ public partial class SettingWindow : Window
     {
         InitializeComponent();
 
-        DragControlHelper.StartDrag(TabControl);
-
         DataContextChanged += (sender, args) =>
         {
             ViewModel.SelectSettingTranslate.Clear();
@@ -51,6 +49,9 @@ public partial class SettingWindow : Window
             ViewModel.Language = ViewModel.Languages.FirstOrDefault(x => x.value == options.Language);
             ViewModel.TargetLanguage = ViewModel.Languages.FirstOrDefault(x => x.value == options.TargetLanguage);
 
+            ViewModel.AiModel = options.AiModel;
+            ViewModel.AiEndpoint = options.AiEndpoint;
+            ViewModel.AiKey = options.AiKey;
             ViewModel.MicrosoftLocation = options.MicrosoftLocation;
             ViewModel.AutomaticDetection = options.AutomaticDetection;
             ViewModel.MicrosoftKey = options.MicrosoftKey;
@@ -58,12 +59,6 @@ public partial class SettingWindow : Window
             ViewModel.SelectSetting = ViewModel.SelectSettingTranslate.First(x =>
                 x.Value == options.LanguageService);
         };
-    }
-
-    protected override void OnClosed(EventArgs e)
-    {
-        DragControlHelper.StopDrag(TabControl);
-        base.OnClosed(e);
     }
 
     private SettingWindowViewModel ViewModel => (DataContext as SettingWindowViewModel)!;
@@ -88,6 +83,9 @@ public partial class SettingWindow : Window
             options.AutomaticDetection = ViewModel.AutomaticDetection;
             options.TargetLanguage = ViewModel.TargetLanguage?.value;
             options.Language = ViewModel.Language?.value;
+            options.AiModel = ViewModel.AiModel;
+            options.AiEndpoint = ViewModel.AiEndpoint;
+            options.AiKey = ViewModel.AiKey;
 
             using var stream = File.CreateText("./" + Constant.SettingDb);
             stream.WriteLine(JsonSerializer.Serialize(options));
@@ -99,15 +97,22 @@ public partial class SettingWindow : Window
         }
     }
 
+    private StackPanel _stackPanel;
+
     private void SelectingItemsControl_OnSelectionChanged(object? sender, SelectionChangedEventArgs e)
     {
         if (sender is ComboBox comboBox && comboBox.SelectedItem is SelectSettingTranslateDto selectedItem)
         {
-            var stack = this.FindControl<StackPanel>("StackPanel" + selectedItem.Value);
-
-            if (stack != null)
+            if (_stackPanel != null)
             {
-                stack.IsVisible = true;
+                _stackPanel.IsVisible = false;
+            }
+
+            _stackPanel = this.FindControl<StackPanel>("StackPanel" + selectedItem.Value);
+
+            if (_stackPanel != null)
+            {
+                _stackPanel.IsVisible = true;
             }
         }
     }

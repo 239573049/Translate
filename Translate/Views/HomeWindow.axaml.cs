@@ -1,6 +1,8 @@
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 using Avalonia.Controls;
+using Avalonia.Input;
 using Avalonia.Interactivity;
 using Translate.Models;
 using Translate.Options;
@@ -21,7 +23,7 @@ public partial class HomeWindow : Window
     protected override void OnLoaded(RoutedEventArgs e)
     {
         base.OnLoaded(e);
-        
+
         TextBoxMessage.Focus();
     }
 
@@ -39,8 +41,13 @@ public partial class HomeWindow : Window
             return;
         }
 
+        await ExecuteAsync();
+    }
+
+    private async Task ExecuteAsync()
+    {
         ViewModel.IsLoading = true;
-        
+
         var options = TranslateContext.GetService<SystemOptions>();
 
         var languages = TranslateContext.GetRequiredService<List<LanguageDto>>();
@@ -61,7 +68,26 @@ public partial class HomeWindow : Window
             Value = result.Value,
             Result = result.Result
         };
-        
+
         ViewModel.IsLoading = false;
+
+        // 方便直接复制翻译的结果
+        ResultTextBox.Focus();
+        ResultTextBox.SelectAll();
+
+        // 自动Copy?
+        // ResultTextBox.Copy();
+    }
+
+    private async void TextBoxMessage_OnKeyDown(object? sender, KeyEventArgs e)
+    {
+        if (e is { Key: Key.Enter, KeyModifiers: KeyModifiers.None })
+        {
+            await ExecuteAsync();
+        }
+        else if (e.Key == Key.Escape)
+        {
+            Close();
+        }
     }
 }

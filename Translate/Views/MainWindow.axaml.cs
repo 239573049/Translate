@@ -152,6 +152,10 @@ public partial class MainWindow : Window
                         Value = result.Value,
                         Result = result.Result
                     };
+
+                    ResultTextBox.Focus();
+                    
+                    ResultTextBox.SelectAll();
                 }
                 catch (Exception exception)
                 {

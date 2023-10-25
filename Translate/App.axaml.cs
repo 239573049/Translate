@@ -27,6 +27,7 @@ public partial class App : Application
         var context = TranslateContext.CreateContext();
 
         context.AddKeyedSingleton<ITranslateService, MicrosoftTranslateService>(Constant.MicrosoftLanguage);
+        context.AddKeyedSingleton<ITranslateService, AiTranslateService>(Constant.AILanguage);
 
         context.AddHttpClient();
 

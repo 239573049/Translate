@@ -110,4 +110,40 @@ public class SettingWindowViewModel : ViewModelBase
         get => _languages;
         set => this.RaiseAndSetIfChanged(ref _languages, value);
     }
+
+    public string AiKey
+    {
+        get => _aiKey;
+        set => this.RaiseAndSetIfChanged(ref _aiKey, value);
+    }
+
+    public string AiEndpoint
+    {
+        get => _aiEndpoint;
+        set => this.RaiseAndSetIfChanged(ref _aiEndpoint, value);
+    }
+
+    /// <summary>
+    /// Ai模型
+    /// </summary>
+    public string AiModel
+    {
+        get => _aiModel;
+        set => this.RaiseAndSetIfChanged(ref _aiModel, value);
+    }
+
+    /// <summary>
+    /// Ai Key
+    /// </summary>
+    private string _aiKey;
+
+    /// <summary>
+    /// Ai的端点
+    /// </summary>
+    private string _aiEndpoint;
+
+    /// <summary>
+    /// Ai模型
+    /// </summary>
+    private string _aiModel;
 }

@@ -50,18 +50,18 @@
         </Grid>
         <Border.ContextFlyout>
             <Flyout Placement="Top" ShowMode="Standard">
-                <StackPanel>
+                <StackPanel MinWidth="200">
                     <WrapPanel>
                         <TextBlock FontSize="16" Text="{Binding TranslateDto.Language}"></TextBlock>
                         <TextBlock Text=":"></TextBlock>
                     </WrapPanel>
-                    <TextBox Text="{Binding TranslateDto.Value}"></TextBox>
+                    <TextBox IsReadOnly="True" Text="{Binding TranslateDto.Value}"></TextBox>
                     <Border Height="1" Background="Black"></Border>
                     <WrapPanel>
                         <TextBlock FontSize="16" Text="{Binding TranslateDto.TargetLanguage}"></TextBlock>
                         <TextBlock Text=":"></TextBlock>
                     </WrapPanel>
-                    <TextBox Text="{Binding TranslateDto.Result}"></TextBox>
+                    <TextBox IsReadOnly="True" Name="ResultTextBox" Text="{Binding TranslateDto.Result}"></TextBox>
                 </StackPanel>
             </Flyout>
         </Border.ContextFlyout>

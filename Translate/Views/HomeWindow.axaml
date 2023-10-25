@@ -25,7 +25,6 @@
     <Window.Styles>
         <StyleInclude Source="/Styles/TextBoxStyle.axaml"></StyleInclude>
     </Window.Styles>
-
     <Panel>
         <ExperimentalAcrylicBorder IsHitTestVisible="False">
             <ExperimentalAcrylicBorder.Material>
@@ -33,67 +32,42 @@
                     BackgroundSource="Digger"
                     TintColor="Black"
                     TintOpacity="1"
-                    MaterialOpacity="0.65" />
+                    MaterialOpacity="0.75" />
             </ExperimentalAcrylicBorder.Material>
         </ExperimentalAcrylicBorder>
-        <TabControl Margin="15" TabStripPlacement="Left">
-            <TabItem>
-                <TabItem.HeaderTemplate>
-                    <DataTemplate>
-                        <TextBlock>翻译</TextBlock>
-                    </DataTemplate>
-                </TabItem.HeaderTemplate>
-                <TabItem.Content>
-                    <StackPanel Spacing="10" Margin="15">
-                        <Grid ColumnDefinitions="*,80,80">
-                            <TextBox
-                                Height="100"
-                                Name="TextBoxMessage"
-                                Text="{Binding Message}"
-                                TextWrapping="Wrap"
-                                Background="Transparent"
-                                VerticalContentAlignment="Top">
-                            </TextBox>
-                            <Button Click="Clear_OnClick" Height="35" Margin="5" Grid.Column="1">
-                                清空
-                            </Button>
-                            <Button Background="#FB4A3E" Click="Query_OnClick" IsVisible="{Binding IsQuery}"
-                                    Height="35" Margin="5"
-                                    Grid.Column="2">
-                                查询
-                            </Button>
-                        </Grid>
-                        <Border Height="1" Background="Beige"></Border>
-                        <ProgressBar Classes="circular" IsIndeterminate="True" IsVisible="{Binding IsLoading}"/>
-                        <StackPanel IsVisible="{Binding IsVisibleQueryResult}" IsEnabled="{Binding IsLoading}">
-                            <TextBlock FontSize="20" FontWeight="Bold">
-                                <Run Text="翻译结果（"></Run>
-                                <Run Text="{Binding Translate.TargetLanguage}"></Run>
-                                <Run Text="）："></Run>
-                            </TextBlock>
-                            <TextBox Background="Transparent" Margin="5" IsReadOnly="True" FontSize="18"
-                                     Text="{Binding Translate.Result}">
-                            </TextBox>
-                        </StackPanel>
-                    </StackPanel>
-                </TabItem.Content>
-            </TabItem>
-            <TabItem>
-                <TabItem.Header>
-                    <TextBlock>AI翻译</TextBlock>
-                </TabItem.Header>
-                <TabItem.Content>
-                    <TextBlock>利用AI智能进行翻译</TextBlock>
-                </TabItem.Content>
-            </TabItem>
-            <TabControl.Styles>
-                <Style Selector="TextBlock">
-                    <Setter Property="FontFamily" Value="{StaticResource AlibabaPuHuiTi}"></Setter>
-                </Style>
-                <Style Selector="TextBox">
-                    <Setter Property="FontFamily" Value="{StaticResource AlibabaPuHuiTi}"></Setter>
-                </Style>
-            </TabControl.Styles>
-        </TabControl>
+
+        <StackPanel Spacing="10" Margin="25">
+            <Grid ColumnDefinitions="*,80,80">
+                <TextBox
+                    Height="100"
+                    Name="TextBoxMessage"
+                    Text="{Binding Message}"
+                    TextWrapping="Wrap"
+                    KeyDown="TextBoxMessage_OnKeyDown"
+                    Background="Transparent"
+                    VerticalContentAlignment="Top">
+                </TextBox>
+                <Button Click="Clear_OnClick" Height="35" Margin="5" Grid.Column="1">
+                    清空
+                </Button>
+                <Button Background="#FB4A3E" Click="Query_OnClick" IsVisible="{Binding IsQuery}"
+                        Height="35" Margin="5"
+                        Grid.Column="2">
+                    查询
+                </Button>
+            </Grid>
+            <Border Height="1" Background="Beige"></Border>
+            <ProgressBar Classes="circular" IsIndeterminate="True" IsVisible="{Binding IsLoading}" />
+            <StackPanel IsVisible="{Binding IsVisibleQueryResult}">
+                <TextBlock FontSize="20" FontWeight="Bold">
+                    <Run Text="翻译"></Run>
+                    <Run Text="{Binding Translate.TargetLanguage}"></Run>
+                </TextBlock>
+                <TextBox Height="480" VerticalContentAlignment="Top" TextWrapping="Wrap" Name="ResultTextBox"
+                         Background="Transparent" IsReadOnly="True" Margin="5" FontSize="18"
+                         Text="{Binding Translate.Result}">
+                </TextBox>
+            </StackPanel>
+        </StackPanel>
     </Panel>
 </Window>
