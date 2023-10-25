@@ -87,6 +87,14 @@
                     </StackPanel>
                 </TabItem.Content>
             </TabItem>
+            <TabItem>
+                <TabItem.Header>
+                    <TextBlock>AI翻译</TextBlock>
+                </TabItem.Header>
+                <TabItem.Content>
+                    <TextBlock>利用AI智能进行翻译</TextBlock>
+                </TabItem.Content>
+            </TabItem>
             <TabControl.Styles>
                 <Style Selector="TextBlock">
                     <Setter Property="Foreground" Value="DodgerBlue"></Setter>

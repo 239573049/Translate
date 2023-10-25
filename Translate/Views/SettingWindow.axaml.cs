@@ -39,6 +39,12 @@ public partial class SettingWindow : Window
                 Value = Constant.YouDaoLanguage
             });
 
+            ViewModel.SelectSettingTranslate.Add(new SelectSettingTranslateDto()
+            {
+                Title = "AI翻译",
+                Value = Constant.AILanguage
+            });
+
             var options = TranslateContext.GetService<SystemOptions>();
             ViewModel.Languages = TranslateContext.GetRequiredService<List<LanguageDto>>();
 
@@ -65,9 +71,8 @@ public partial class SettingWindow : Window
     public override void Show()
     {
         base.Show();
-        
-        _manager = new WindowNotificationManager(this) { MaxItems = 3 };
 
+        _manager = new WindowNotificationManager(this) { MaxItems = 3 };
     }
 
     private void Save_OnClick(object? sender, RoutedEventArgs e)
@@ -91,6 +96,19 @@ public partial class SettingWindow : Window
         catch (Exception exception)
         {
             _manager!.Show(new Notification("失败", exception.Message, NotificationType.Error));
+        }
+    }
+
+    private void SelectingItemsControl_OnSelectionChanged(object? sender, SelectionChangedEventArgs e)
+    {
+        if (sender is ComboBox comboBox && comboBox.SelectedItem is SelectSettingTranslateDto selectedItem)
+        {
+            var stack = this.FindControl<StackPanel>("StackPanel" + selectedItem.Value);
+
+            if (stack != null)
+            {
+                stack.IsVisible = true;
+            }
         }
     }
 }

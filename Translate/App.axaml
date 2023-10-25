@@ -2,6 +2,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              x:Class="Translate.App"
              xmlns:local="using:Translate"
+             xmlns:converters="clr-namespace:Translate.Converters"
              RequestedThemeVariant="Default">
   <!-- "Default" ThemeVariant follows system theme variant. "Dark" or "Light" are other available options. -->
 
@@ -11,6 +12,7 @@
 
   <Application.Resources>
     <FontFamily x:Key="AlibabaPuHuiTi">avares://Translate/Assets/AlibabaPuHuiTi.ttf</FontFamily>
+    <converters:VisibleConverter x:Key="VisibleConverter" />
   </Application.Resources>
 
   <Application.Styles>

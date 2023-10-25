@@ -41,7 +41,7 @@
                     <Border Height="1" Background="Black"></Border>
                     <WrapPanel >
                         <TextBlock Margin="5" FontWeight="Bold">当前使用翻译：</TextBlock>
-                        <ComboBox SelectedValue="{Binding SelectSetting}" Width="150"
+                        <ComboBox SelectionChanged="SelectingItemsControl_OnSelectionChanged" SelectedValue="{Binding SelectSetting}" Width="150"
                                   ItemsSource="{Binding SelectSettingTranslate}">
                             <ComboBox.ItemTemplate>
                                 <DataTemplate>
@@ -80,15 +80,19 @@
                         IsChecked="{Binding AutomaticDetection}"
                         Theme="{DynamicResource CardCheckBox}" />
                     <Border Height="1" Background="Black"></Border>
-                    <TextBlock>微软翻译设置</TextBlock>
-                    <TextBox Text="{Binding MicrosoftEndpoint}" Watermark="请输入您的端点（Endpoint）" />
-                    <TextBox Text="{Binding MicrosoftKey}" Watermark="请输入您的Key（Key）" />
-                    <TextBox Text="{Binding MicrosoftLocation}" Watermark="请输入您的location（location）可空" />
-                    <Border Height="1" Background="Black"></Border>
-                    <TextBlock>有道翻译设置</TextBlock>
-                    <TextBox Watermark="请输入您的AppKey（AppKey）" />
-                    <TextBox Watermark="请输入您的AppId（AppId）" />
-                    <Border Height="1" Background="Black"></Border>
+                    <StackPanel Name="StackPanelMicrosoftLanguage">
+                        <TextBlock>微软翻译设置</TextBlock>
+                        <TextBox Text="{Binding MicrosoftEndpoint}" Watermark="请输入您的端点（Endpoint）" />
+                        <TextBox Text="{Binding MicrosoftKey}" Watermark="请输入您的Key（Key）" />
+                        <TextBox Text="{Binding MicrosoftLocation}" Watermark="请输入您的location（location）可空" />
+                        <Border Height="1" Background="Black"></Border>
+                    </StackPanel>
+                    <StackPanel Name="StackPanelYouDaoLanguage">
+                        <TextBlock>有道翻译设置</TextBlock>
+                        <TextBox Watermark="请输入您的AppKey（AppKey）" />
+                        <TextBox Watermark="请输入您的AppId（AppId）" />
+                        <Border Height="1" Background="Black"></Border>
+                    </StackPanel>
                     <Button Click="Save_OnClick" Classes="Success">保存设置</Button>
                 </StackPanel>
 
