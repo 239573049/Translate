@@ -4,6 +4,7 @@
     <option name="projectPerEditor">
       <map>
         <entry key="Translate/App.axaml" value="Translate/Translate.csproj" />
+        <entry key="Translate/Views/HomeWindow.axaml" value="Translate/Translate.csproj" />
         <entry key="Translate/Views/MainWindow.axaml" value="Translate/Translate.csproj" />
         <entry key="Translate/Views/SettingWindow.axaml" value="Translate/Translate.csproj" />
       </map>

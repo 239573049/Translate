@@ -9,5 +9,5 @@ public static class Constant
     /// <summary>
     /// 系统配置文件
     /// </summary>
-    public const string SettingDB = "SettingConfig.db";
+    public const string SettingDb = "SettingConfig.db";
 }

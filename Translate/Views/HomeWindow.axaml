@@ -1,0 +1,101 @@
+<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:viewModels="clr-namespace:Translate.ViewModels"
+        mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+        x:Class="Translate.HomeWindow"
+        RequestedThemeVariant="Dark"
+        TransparencyLevelHint="AcrylicBlur"
+        ExtendClientAreaToDecorationsHint="True"
+        Background="Transparent"
+        WindowStartupLocation="CenterScreen"
+        Icon="../Assets/home-64.png"
+        Width="600"
+        MinWidth="600"
+        Height="560"
+        MinHeight="560"
+        Title="HomeWindow"
+        x:DataType="viewModels:HomeWindowViewModel">
+
+    <Design.DataContext>
+        <viewModels:HomeWindowViewModel />
+    </Design.DataContext>
+
+    <Window.Styles>
+        <StyleInclude Source="/Styles/TextBoxStyle.axaml"></StyleInclude>
+    </Window.Styles>
+
+    <Panel>
+        <ExperimentalAcrylicBorder IsHitTestVisible="False">
+            <ExperimentalAcrylicBorder.Material>
+                <ExperimentalAcrylicMaterial
+                    BackgroundSource="Digger"
+                    TintColor="Black"
+                    TintOpacity="1"
+                    MaterialOpacity="0.65" />
+            </ExperimentalAcrylicBorder.Material>
+        </ExperimentalAcrylicBorder>
+        <TabControl Margin="15" TabStripPlacement="Left">
+            <TabItem>
+                <TabItem.HeaderTemplate>
+                    <DataTemplate>
+                        <TextBlock>翻译</TextBlock>
+                    </DataTemplate>
+                </TabItem.HeaderTemplate>
+                <TabItem.Content>
+                    <StackPanel Spacing="10" Margin="15">
+                        <Grid ColumnDefinitions="*,80,80">
+                            <TextBox
+                                Height="100"
+                                Name="TextBoxMessage"
+                                Text="{Binding Message}"
+                                TextWrapping="Wrap"
+                                Background="Transparent"
+                                VerticalContentAlignment="Top">
+                            </TextBox>
+                            <Button Click="Clear_OnClick" Height="55" Margin="5" Grid.Column="1"
+                                    Background="Transparent">
+                                <Border Width="70" BorderBrush="#212226" BorderThickness="1" CornerRadius="8">
+                                    <TextBlock FontSize="10" Foreground="AliceBlue" HorizontalAlignment="Center"
+                                               Margin="8">
+                                        清空
+                                    </TextBlock>
+                                </Border>
+                            </Button>
+                            <Button Click="Query_OnClick" IsVisible="{Binding IsQuery}" Height="55" Margin="5"
+                                    Grid.Column="2" Background="Transparent">
+                                <Border Width="70" Background="#FB4A3E" CornerRadius="8">
+                                    <TextBlock FontSize="10" Foreground="AliceBlue" HorizontalAlignment="Center"
+                                               Margin="8">
+                                        查询
+                                    </TextBlock>
+                                </Border>
+                            </Button>
+                        </Grid>
+                        <Border Height="1" Background="Beige"></Border>
+                        <StackPanel IsVisible="{Binding IsVisibleQueryResult}">
+                            <TextBlock FontSize="20" FontWeight="Bold">
+                                <Run Text="翻译结果（"></Run>
+                                <Run Text="{Binding Translate.TargetLanguage}"></Run>
+                                <Run Text="）："></Run>
+                            </TextBlock>
+                            <TextBox Background="Transparent" Margin="5" IsReadOnly="True" FontSize="18"
+                                     Text="{Binding Translate.Result}">
+                            </TextBox>
+                        </StackPanel>
+                    </StackPanel>
+                </TabItem.Content>
+            </TabItem>
+            <TabControl.Styles>
+                <Style Selector="TextBlock">
+                    <Setter Property="Foreground" Value="DodgerBlue"></Setter>
+                    <Setter Property="FontFamily" Value="{StaticResource AlibabaPuHuiTi}"></Setter>
+                </Style>
+                <Style Selector="TextBox">
+                    <Setter Property="FontFamily" Value="{StaticResource AlibabaPuHuiTi}"></Setter>
+                </Style>
+            </TabControl.Styles>
+        </TabControl>
+    </Panel>
+</Window>

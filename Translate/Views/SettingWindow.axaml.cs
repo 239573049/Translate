@@ -84,7 +84,7 @@ public partial class SettingWindow : Window
             options.TargetLanguage = ViewModel.TargetLanguage?.value;
             options.Language = ViewModel.Language?.value;
 
-            using var stream = File.CreateText("./" + Constant.SettingDB);
+            using var stream = File.CreateText("./" + Constant.SettingDb);
             stream.WriteLine(JsonSerializer.Serialize(options));
             _manager!.Show(new Notification("成功", "保存配置成功", NotificationType.Success));
         }

@@ -6,6 +6,7 @@ using System.Reflection;
 using System.Text.Json;
 using System.Text.Json.Serialization;
 using Avalonia;
+using Avalonia.Controls;
 using Avalonia.Controls.ApplicationLifetimes;
 using Avalonia.Markup.Xaml;
 using LiteDB;
@@ -29,13 +30,18 @@ public partial class App : Application
 
         context.AddHttpClient();
 
+        context.AddTransient<HomeWindow>((_) => new HomeWindow()
+        {
+            DataContext = new HomeWindowViewModel()
+        });
+
         context.AddSingleton<SystemOptions>((_) =>
         {
-            if (!File.Exists("./" + Constant.SettingDB)) return new SystemOptions();
+            if (!File.Exists("./" + Constant.SettingDb)) return new SystemOptions();
 
             try
             {
-                return JsonSerializer.Deserialize<SystemOptions>(File.ReadAllText("./" + Constant.SettingDB),
+                return JsonSerializer.Deserialize<SystemOptions>(File.ReadAllText("./" + Constant.SettingDb),
                     new JsonSerializerOptions()
                     {
                         Converters =
@@ -72,7 +78,6 @@ public partial class App : Application
             {
                 DataContext = new MainWindowViewModel(),
             };
-            
         }
 
         base.OnFrameworkInitializationCompleted();
@@ -90,5 +95,17 @@ public partial class App : Application
             DataContext = new SettingWindowViewModel(),
         };
         setting.Show();
+    }
+
+    private void OpenHome_OnClick(object? sender, EventArgs e)
+    {
+        var home = TranslateContext.GetService<HomeWindow>();
+        home.Show();
+    }
+
+    private void TrayIcon_OnClicked(object? sender, EventArgs e)
+    {
+        var home = TranslateContext.GetService<HomeWindow>();
+        home.Show();
     }
 }
