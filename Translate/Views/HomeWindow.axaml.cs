@@ -23,7 +23,7 @@ public partial class HomeWindow : Window
     protected override void OnLoaded(RoutedEventArgs e)
     {
         base.OnLoaded(e);
-
+        
         TextBoxMessage.Focus();
     }
 
@@ -46,6 +46,7 @@ public partial class HomeWindow : Window
 
     private async Task ExecuteAsync()
     {
+        ViewModel.Translate = null;
         ViewModel.IsLoading = true;
 
         var options = TranslateContext.GetService<SystemOptions>();
@@ -60,6 +61,7 @@ public partial class HomeWindow : Window
         result.TargetLanguage = languages
             .FirstOrDefault(x => x.value == result.TargetLanguage)?.label ?? string.Empty;
 
+        
         ViewModel.IsVisibleQueryResult = true;
         ViewModel.Translate = new TranslateDto()
         {

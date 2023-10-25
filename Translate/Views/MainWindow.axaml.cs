@@ -13,19 +13,34 @@ using Translate.Models;
 using Translate.Options;
 using Translate.Services;
 using Translate.ViewModels;
+using HotKeyManager = Translate.Helper.HotKeyManager;
 
 namespace Translate.Views;
 
-public partial class MainWindow : Window
+public partial class MainWindow : Window, IDisposable
 {
     private readonly CancellationTokenSource _cancellationToken = new();
+    private HotKeyManager hotKeyManager;
 
     public MainWindow()
     {
         InitializeComponent();
+        // hotKeyManager = new HotKeyManager();
+        //
+        // // 注册快捷键 CTRL+ALT+F
+        // hotKeyManager.RegisterHotKey(1, 0x11 | 0x12, 0x46);
+        //
+        // // 添加快捷键按下的处理器
+        // hotKeyManager.HotKeyPressed += (s, e) =>
+        // {
+        //     // 在这里添加你的代码
+        //     Console.WriteLine("Hotkey pressed!");
+        // };
+
+        // 在你的应用程序结束
 
         ShowInTaskbar = false;
-        
+
         Task.Run(async () =>
         {
             while (!_cancellationToken.IsCancellationRequested)
@@ -136,7 +151,7 @@ public partial class MainWindow : Window
                     var options = TranslateContext.GetService<SystemOptions>();
 
                     var languages = TranslateContext.GetRequiredService<List<LanguageDto>>();
-                    
+
                     var translateService =
                         TranslateContext.GetKeyedService<ITranslateService>(options.LanguageService);
                     var result = await translateService.ExecuteAsync(TextBox.Text);
@@ -154,7 +169,7 @@ public partial class MainWindow : Window
                     };
 
                     ResultTextBox.Focus();
-                    
+
                     ResultTextBox.SelectAll();
                 }
                 catch (Exception exception)
@@ -164,5 +179,10 @@ public partial class MainWindow : Window
             }
         }
     }
-    
+
+    public void Dispose()
+    {
+        // 在你的应用程序结束时，记得注销快捷键
+        // hotKeyManager.UnregisterHotKey(1);
+    }
 }
