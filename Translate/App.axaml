@@ -3,6 +3,7 @@
              x:Class="Translate.App"
              xmlns:local="using:Translate"
              xmlns:converters="clr-namespace:Translate.Converters"
+             xmlns:themes="clr-namespace:Material.Styles.Themes;assembly=Material.Styles"
              RequestedThemeVariant="Default">
   <!-- "Default" ThemeVariant follows system theme variant. "Dark" or "Light" are other available options. -->
 
@@ -17,7 +18,7 @@
 
   <Application.Styles>
     <FluentTheme />
-    <StyleInclude Source="avares://Semi.Avalonia/Themes/Index.axaml" />
+    <themes:MaterialTheme BaseTheme="Dark" PrimaryColor="Purple" SecondaryColor="Lime" />
   </Application.Styles>
   <TrayIcon.Icons>
     <TrayIcons>

@@ -41,4 +41,13 @@ public class HomeWindowViewModel : ViewModelBase
         get => _translate;
         set => this.RaiseAndSetIfChanged(ref _translate, value);
     }
+
+    public bool IsLoading
+    {
+        get => _isLoading;
+        set => this.RaiseAndSetIfChanged(ref _isLoading,value);
+    }
+
+    private bool _isLoading;
+    
 }

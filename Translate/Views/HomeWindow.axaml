@@ -54,27 +54,18 @@
                                 Background="Transparent"
                                 VerticalContentAlignment="Top">
                             </TextBox>
-                            <Button Click="Clear_OnClick" Height="55" Margin="5" Grid.Column="1"
-                                    Background="Transparent">
-                                <Border Width="70" BorderBrush="#212226" BorderThickness="1" CornerRadius="8">
-                                    <TextBlock FontSize="10" Foreground="AliceBlue" HorizontalAlignment="Center"
-                                               Margin="8">
-                                        清空
-                                    </TextBlock>
-                                </Border>
+                            <Button Click="Clear_OnClick" Height="35" Margin="5" Grid.Column="1">
+                                清空
                             </Button>
-                            <Button Click="Query_OnClick" IsVisible="{Binding IsQuery}" Height="55" Margin="5"
-                                    Grid.Column="2" Background="Transparent">
-                                <Border Width="70" Background="#FB4A3E" CornerRadius="8">
-                                    <TextBlock FontSize="10" Foreground="AliceBlue" HorizontalAlignment="Center"
-                                               Margin="8">
-                                        查询
-                                    </TextBlock>
-                                </Border>
+                            <Button Background="#FB4A3E" Click="Query_OnClick" IsVisible="{Binding IsQuery}"
+                                    Height="35" Margin="5"
+                                    Grid.Column="2">
+                                查询
                             </Button>
                         </Grid>
                         <Border Height="1" Background="Beige"></Border>
-                        <StackPanel IsVisible="{Binding IsVisibleQueryResult}">
+                        <ProgressBar Classes="circular" IsIndeterminate="True" IsVisible="{Binding IsLoading}"/>
+                        <StackPanel IsVisible="{Binding IsVisibleQueryResult}" IsEnabled="{Binding IsLoading}">
                             <TextBlock FontSize="20" FontWeight="Bold">
                                 <Run Text="翻译结果（"></Run>
                                 <Run Text="{Binding Translate.TargetLanguage}"></Run>
@@ -97,7 +88,6 @@
             </TabItem>
             <TabControl.Styles>
                 <Style Selector="TextBlock">
-                    <Setter Property="Foreground" Value="DodgerBlue"></Setter>
                     <Setter Property="FontFamily" Value="{StaticResource AlibabaPuHuiTi}"></Setter>
                 </Style>
                 <Style Selector="TextBox">

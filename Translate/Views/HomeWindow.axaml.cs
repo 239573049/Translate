@@ -39,6 +39,8 @@ public partial class HomeWindow : Window
             return;
         }
 
+        ViewModel.IsLoading = true;
+        
         var options = TranslateContext.GetService<SystemOptions>();
 
         var languages = TranslateContext.GetRequiredService<List<LanguageDto>>();
@@ -59,5 +61,7 @@ public partial class HomeWindow : Window
             Value = result.Value,
             Result = result.Result
         };
+        
+        ViewModel.IsLoading = false;
     }
 }
