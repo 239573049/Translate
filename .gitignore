@@ -3,3 +3,7 @@ obj/
 /packages/
 riderModule.iml
 /_ReSharper.Caches/
+/.idea/.idea.Translate/.idea
+/.vs
+/Translate/Properties/PublishProfiles
+*.user
