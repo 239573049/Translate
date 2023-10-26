@@ -1,8 +1,8 @@
-using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Avalonia.Controls;
+using Avalonia.Controls.Notifications;
 using Avalonia.Input;
 using Avalonia.Interactivity;
 using Translate.Models;
@@ -14,10 +14,12 @@ namespace Translate;
 
 public partial class HomeWindow : Window
 {
+    private WindowNotificationManager? _manager;
+
     public HomeWindow()
     {
         InitializeComponent();
-        
+
         this.Closing += MainWindow_Closing;
     }
 
@@ -30,8 +32,10 @@ public partial class HomeWindow : Window
     public override void Show()
     {
         base.Show();
-        
+
         TextBoxMessage.Focus();
+
+        _manager = new WindowNotificationManager(this) { MaxItems = 3 };
     }
 
     private HomeWindowViewModel ViewModel => DataContext as HomeWindowViewModel;
@@ -39,7 +43,7 @@ public partial class HomeWindow : Window
     protected override void OnLoaded(RoutedEventArgs e)
     {
         base.OnLoaded(e);
-        
+
         TextBoxMessage.Focus();
     }
 
@@ -69,6 +73,62 @@ public partial class HomeWindow : Window
 
         var languages = TranslateContext.GetRequiredService<List<LanguageDto>>();
 
+        if (options.LanguageService == Constant.AILanguage)
+        {
+            if (string.IsNullOrWhiteSpace(options.AiEndpoint))
+            {
+                _manager.Show(new Notification("错误", "AI端点并没有配置，请打开设置配置！", NotificationType.Error));
+                return;
+            }
+
+            if (string.IsNullOrWhiteSpace(options.AiKey))
+            {
+                _manager.Show(new Notification("错误", "AIKey并没有配置，请打开设置配置！", NotificationType.Error));
+                return;
+            }
+
+            if (string.IsNullOrWhiteSpace(options.AiModel))
+            {
+                _manager.Show(new Notification("错误", "AI模型并没有配置，请打开设置配置！", NotificationType.Error));
+                return;
+            }
+        }
+        else if (options.LanguageService == Constant.MicrosoftLanguage)
+        {
+            if (string.IsNullOrWhiteSpace(options.MicrosoftEndpoint))
+            {
+                _manager.Show(new Notification("错误", "Microsoft端点并没有配置，请打开设置配置！", NotificationType.Error));
+                return;
+            }
+
+            if (string.IsNullOrWhiteSpace(options.MicrosoftKey))
+            {
+                _manager.Show(new Notification("错误", "Microsoft Key并没有配置，请打开设置配置！", NotificationType.Error));
+                return;
+            }
+
+            if (string.IsNullOrWhiteSpace(options.MicrosoftLocation))
+            {
+                _manager.Show(new Notification("错误", "Microsoft Location并没有配置，请打开设置配置！", NotificationType.Error));
+                return;
+            }
+        }
+        else if (options.LanguageService == Constant.YouDaoLanguage)
+        {
+            if (string.IsNullOrWhiteSpace(options.YoudaoKey))
+            {
+                _manager.Show(new Notification("错误", "有道Key并没有配置，请打开设置配置！", NotificationType.Error));
+                return;
+            }
+
+            if (string.IsNullOrWhiteSpace(options.YoudaoAppSecret))
+            {
+                _manager.Show(new Notification("错误", "有道AppSecret并没有配置，请打开设置配置！", NotificationType.Error));
+                return;
+            }
+        }
+
+
         var translateService =
             TranslateContext.GetKeyedService<ITranslateService>(options.LanguageService);
         var result = await translateService.ExecuteAsync(ViewModel.Message);
@@ -95,6 +155,7 @@ public partial class HomeWindow : Window
         // 自动Copy?
         // ResultTextBox.Copy();
     }
+
 
     private async void TextBoxMessage_OnKeyDown(object? sender, KeyEventArgs e)
     {

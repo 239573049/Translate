@@ -7,6 +7,14 @@
         <BuiltInComInteropSupport>true</BuiltInComInteropSupport>
         <ApplicationManifest>app.manifest</ApplicationManifest>
         <AvaloniaUseCompiledBindingsByDefault>true</AvaloniaUseCompiledBindingsByDefault>
+        <AllowUnsafeBlocks>True</AllowUnsafeBlocks>
+        <ApplicationIcon>Assets\translate.ico</ApplicationIcon>
+    </PropertyGroup>
+    <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+      <DebugType>portable</DebugType>
+    </PropertyGroup>
+    <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
+      <DebugType>portable</DebugType>
     </PropertyGroup>
 
     <ItemGroup>
@@ -33,6 +41,7 @@
       <None Remove="Assets\AlibabaPuHuiTi.ttf" />
       <None Remove="Assets\home-64.png" />
       <None Remove="language.json" />
+      <Content Include="Assets\translate.ico" />
       <EmbeddedResource Include="language.json" />
     </ItemGroup>
 </Project>

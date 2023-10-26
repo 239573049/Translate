@@ -8,7 +8,7 @@ namespace Translate.Helper;
 /// 键盘钩子
 /// [以下代码来自某网友，并非本人原创]
 /// </summary>
-public class KeyboardHook
+public class KeyboardHook : IDisposable
 {
     public Action<KeyboardHook, VirtualKeyCodes> KeyDownEvent;
     public Action<KeyboardHook, char> KeyPressEvent;
@@ -65,7 +65,7 @@ public class KeyboardHook
             KeyboardHookProcedure = new HookProc(KeyboardHookProc);
             hKeyboardHook = SetWindowsHookEx(WH_KEYBOARD_LL, KeyboardHookProcedure,
                 GetModuleHandle(Process.GetCurrentProcess().MainModule.ModuleName), 0);
-            //hKeyboardHook = SetWindowsHookEx(WH_KEYBOARD_LL, KeyboardHookProcedure, Marshal.GetHINSTANCE(Assembly.GetExecutingAssembly().GetModules()[0]), 0);
+            //hKeyboardHook = SetWindowsHookEx(WH_KEY11BOARD_LL, KeyboardHookProcedure, Marshal.GetHINSTANCE(Assembly.GetExecutingAssembly().GetModules()[0]), 0);
             //************************************
             //键盘线程钩子
             //SetWindowsHookEx( 2,KeyboardHookProcedure, IntPtr.Zero, GetCurrentThreadId());//指定要监听的线程idGetCurrentThreadId(),
@@ -105,7 +105,7 @@ public class KeyboardHook
 
     //ToAscii职能的转换指定的虚拟键码和键盘状态的相应字符或字符
     [DllImport("user32")]
-    public static extern int ToAscii(int uVirtKey, //[in] 指定虚拟关键代码进行翻译。
+    public static extern int To1Ascii(int uVirtKey, //[in] 指定虚拟关键代码进行翻译。
         int uScanCode, // [in] 指定的硬件扫描码的关键须翻译成英文。高阶位的这个值设定的关键，如果是（不压）
         byte[] lpbKeyState, // [in] 指针，以256字节数组，包含当前键盘的状态。每个元素（字节）的数组包含状态的一个关键。如果高阶位的字节是一套，关键是下跌（按下）。在低比特，如果设置表明，关键是对切换。在此功能，只有肘位的CAPS LOCK键是相关的。在切换状态的NUM个锁和滚动锁定键被忽略。
         byte[] lpwTransKey, // [out] 指针的缓冲区收到翻译字符或字符。
@@ -136,34 +136,16 @@ public class KeyboardHook
             {
                 KeyDownEvent.Invoke(this, (VirtualKeyCodes)MyKeyboardHookStruct.vkCode);
             }
-            // else if (KeyUpEvent != null && (wParam == WM_KEYUP || wParam == WM_SYSKEYUP))
-            // {
-            //     KeyUpEvent.Invoke(this, (VirtualKeyCodes)MyKeyboardHookStruct.vkCode);
-            // }
-            //键盘按下
-            // if (KeyPressEvent != null && wParam == WM_KEYDOWN)
-            // {
-            //     byte[] keyState = new byte[256];
-            //     GetKeyboardState(keyState);
-            //
-            //     byte[] inBuffer = new byte[2];
-            //     if (ToAscii(MyKeyboardHookStruct.vkCode, MyKeyboardHookStruct.scanCode, keyState, inBuffer,
-            //             MyKeyboardHookStruct.flags) == 1)
-            //     {
-            //         KeyPressEvent.Invoke(this, (char)inBuffer[0]);
-            //     }
-            // }
         }
 
-        //如果返回1，则结束消息，这个消息到此为止，不再传递。
-        //如果返回0或调用CallNextHookEx函数则消息出了这个钩子继续往下传递，也就是传给消息真正的接受者
-        return CallNextHookEx(hKeyboardHook, nCode, wParam, lParam);
+        return 0;
     }
 
-    ~KeyboardHook()
+    public void Dispose()
     {
         Stop();
     }
+
 }
 
 public static class KeyboardUtilities

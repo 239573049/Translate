@@ -6,6 +6,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using Avalonia;
 using Avalonia.Controls;
+using Avalonia.Controls.Notifications;
 using Avalonia.Input;
 using Avalonia.Interactivity;
 using Avalonia.Threading;
@@ -21,6 +22,8 @@ public partial class MainWindow : Window, IDisposable
 {
     private readonly CancellationTokenSource _cancellationToken = new();
 
+    private WindowNotificationManager? _manager;
+    
     private KeyboardHook KeyboardHook;
 
     public MainWindow()
@@ -80,12 +83,7 @@ public partial class MainWindow : Window, IDisposable
             };
         }
     }
-
-
-    private static void KeyboardHook_KeyDownEvent(KeyboardHook sender, int keyCode)
-    {
-        Console.WriteLine("" + keyCode);
-    }
+    
 
     private MainWindowViewModel? ViewModel => DataContext as MainWindowViewModel;
 
@@ -101,6 +99,7 @@ public partial class MainWindow : Window, IDisposable
     {
         base.Show();
         BottomRight();
+        _manager = new WindowNotificationManager(this) { MaxItems = 3 };
     }
 
     private void BottomRight()
@@ -155,6 +154,63 @@ public partial class MainWindow : Window, IDisposable
                 {
                     var options = TranslateContext.GetService<SystemOptions>();
 
+                    if (options.LanguageService == Constant.AILanguage)
+                    {
+                        if (string.IsNullOrWhiteSpace(options.AiEndpoint))
+                        {
+                            _manager.Show(new Notification("错误", "AI端点并没有配置，请打开设置配置！", NotificationType.Error));
+                            return;
+                        }
+
+                        if (string.IsNullOrWhiteSpace(options.AiKey))
+                        {
+                            _manager.Show(new Notification("错误", "AIKey并没有配置，请打开设置配置！", NotificationType.Error));
+                            return;
+                        }
+
+                        if (string.IsNullOrWhiteSpace(options.AiModel))
+                        {
+                            _manager.Show(new Notification("错误", "AI模型并没有配置，请打开设置配置！", NotificationType.Error));
+                            return;
+                        }
+                    }
+                    else if (options.LanguageService == Constant.MicrosoftLanguage)
+                    {
+                        if (string.IsNullOrWhiteSpace(options.MicrosoftEndpoint))
+                        {
+                            _manager.Show(new Notification("错误", "Microsoft端点并没有配置，请打开设置配置！", NotificationType.Error));
+                            return;
+                        }
+
+                        if (string.IsNullOrWhiteSpace(options.MicrosoftKey))
+                        {
+                            _manager.Show(new Notification("错误", "Microsoft Key并没有配置，请打开设置配置！",
+                                NotificationType.Error));
+                            return;
+                        }
+
+                        if (string.IsNullOrWhiteSpace(options.MicrosoftLocation))
+                        {
+                            _manager.Show(new Notification("错误", "Microsoft Location并没有配置，请打开设置配置！",
+                                NotificationType.Error));
+                            return;
+                        }
+                    }
+                    else if (options.LanguageService == Constant.YouDaoLanguage)
+                    {
+                        if (string.IsNullOrWhiteSpace(options.YoudaoKey))
+                        {
+                            _manager.Show(new Notification("错误", "有道Key并没有配置，请打开设置配置！", NotificationType.Error));
+                            return;
+                        }
+
+                        if (string.IsNullOrWhiteSpace(options.YoudaoAppSecret))
+                        {
+                            _manager.Show(new Notification("错误", "有道AppSecret并没有配置，请打开设置配置！", NotificationType.Error));
+                            return;
+                        }
+                    }
+
                     var languages = TranslateContext.GetRequiredService<List<LanguageDto>>();
 
                     var translateService =
@@ -187,6 +243,6 @@ public partial class MainWindow : Window, IDisposable
 
     public void Dispose()
     {
-        // 在你的应用程序结束时，记得注销快捷键
+        KeyboardHook.Dispose();
     }
 }
