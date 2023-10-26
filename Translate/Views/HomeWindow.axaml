@@ -3,6 +3,7 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:viewModels="clr-namespace:Translate.ViewModels"
+        xmlns:assists="clr-namespace:Material.Styles.Assists;assembly=Material.Styles"
         mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
         x:Class="Translate.HomeWindow"
         RequestedThemeVariant="Dark"
@@ -37,6 +38,11 @@
         </ExperimentalAcrylicBorder>
 
         <StackPanel Spacing="10" Margin="25">
+            <StackPanel>
+                <TextBlock FontSize="20" FontWeight="Bold" >
+                    翻译工具
+                </TextBlock>
+            </StackPanel>
             <Grid ColumnDefinitions="*,80,80">
                 <TextBox
                     Height="100"
@@ -45,6 +51,7 @@
                     TextWrapping="Wrap"
                     KeyDown="TextBoxMessage_OnKeyDown"
                     Background="Transparent"
+                    assists:TextFieldAssist.Label="{Binding Message.Length}"
                     VerticalContentAlignment="Top">
                 </TextBox>
                 <Button Click="Clear_OnClick" Height="35" Margin="5" Grid.Column="1">
@@ -55,6 +62,10 @@
                         Grid.Column="2">
                     查询
                 </Button>
+                <TextBlock HorizontalAlignment="Right" VerticalAlignment="Bottom" Grid.Column="2">
+                    字数：
+                    <Run Text="{Binding Message.Length}"></Run>
+                </TextBlock>
             </Grid>
             <Border Height="1" Background="Beige"></Border>
             <ProgressBar Classes="circular" IsIndeterminate="True" IsVisible="{Binding IsLoading}" />
@@ -64,7 +75,7 @@
                     <Run Text="{Binding Translate.TargetLanguage}"></Run>
                 </TextBlock>
                 <TextBox Height="480" VerticalContentAlignment="Top" TextWrapping="Wrap" Name="ResultTextBox"
-                         Background="Transparent" IsReadOnly="True" Margin="5" FontSize="18"
+                         Background="Transparent" IsReadOnly="True" Margin="5" FontSize="16"
                          Text="{Binding Translate.Result}">
                 </TextBox>
             </StackPanel>

@@ -16,6 +16,10 @@
     "label": "中文（简体）"
   },
   {
+    "value": "zh-CHS2en",
+    "label": "中文（简体S2en）"
+  },
+  {
     "value": "zh-Hant",
     "label": "中文（繁体）"
   },

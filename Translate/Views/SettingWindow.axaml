@@ -98,9 +98,9 @@
                     <StackPanel Name="StackPanelYouDaoLanguage" IsVisible="False">
                         <TextBlock>有道翻译设置</TextBlock>
                         <TextBox UseFloatingWatermark="True" Classes="outline" Theme="{StaticResource OutlineTextBox}"
-                                 assists:TextFieldAssist.Label="请输入您的AppKey（AppKey）" />
+                                 assists:TextFieldAssist.Label="请输入您的AppKey（AppKey）" Text="{Binding YoudaoKey}" />
                         <TextBox UseFloatingWatermark="True" Classes="outline" Theme="{StaticResource OutlineTextBox}"
-                                 assists:TextFieldAssist.Label="请输入您的AppId（AppId）" />
+                                 assists:TextFieldAssist.Label="请输入您的AppSecret（AppSecret）" Text="{Binding YoudaoAppSecret}"/>
                         <Border Height="1" Background="Black"></Border>
                     </StackPanel>
                     <StackPanel Name="StackPanelAILanguage" IsVisible="False">

@@ -28,10 +28,11 @@ public partial class App : Application
 
         context.AddKeyedSingleton<ITranslateService, MicrosoftTranslateService>(Constant.MicrosoftLanguage);
         context.AddKeyedSingleton<ITranslateService, AiTranslateService>(Constant.AILanguage);
+        context.AddKeyedSingleton<ITranslateService, YoudaoTranslateService>(Constant.YouDaoLanguage);
 
         context.AddHttpClient();
 
-        context.AddTransient<HomeWindow>((_) => new HomeWindow()
+        context.AddSingleton<HomeWindow>((_) => new HomeWindow()
         {
             DataContext = new HomeWindowViewModel()
         });

@@ -51,4 +51,14 @@ public class SystemOptions
     /// Ai模型
     /// </summary>
     public string AiModel { get; set; } = "gpt-3.5-turbo";
+
+    /// <summary>
+    /// 有道key
+    /// </summary>
+    public string YoudaoKey { get; set; }
+
+    /// <summary>
+    /// 有道Id
+    /// </summary>
+    public string YoudaoAppSecret { get; set; }
 }

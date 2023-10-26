@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -16,6 +17,21 @@ public partial class HomeWindow : Window
     public HomeWindow()
     {
         InitializeComponent();
+        
+        this.Closing += MainWindow_Closing;
+    }
+
+    private void MainWindow_Closing(object? sender, WindowClosingEventArgs e)
+    {
+        e.Cancel = true;
+        Hide();
+    }
+
+    public override void Show()
+    {
+        base.Show();
+        
+        TextBoxMessage.Focus();
     }
 
     private HomeWindowViewModel ViewModel => DataContext as HomeWindowViewModel;
@@ -61,7 +77,6 @@ public partial class HomeWindow : Window
         result.TargetLanguage = languages
             .FirstOrDefault(x => x.value == result.TargetLanguage)?.label ?? string.Empty;
 
-        
         ViewModel.IsVisibleQueryResult = true;
         ViewModel.Translate = new TranslateDto()
         {

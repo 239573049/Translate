@@ -56,6 +56,8 @@ public partial class SettingWindow : Window
             ViewModel.AutomaticDetection = options.AutomaticDetection;
             ViewModel.MicrosoftKey = options.MicrosoftKey;
             ViewModel.MicrosoftEndpoint = options.MicrosoftEndpoint;
+            ViewModel.YoudaoKey = options.YoudaoKey;
+            ViewModel.YoudaoAppSecret = options.YoudaoAppSecret;
             ViewModel.SelectSetting = ViewModel.SelectSettingTranslate.First(x =>
                 x.Value == options.LanguageService);
         };
@@ -86,7 +88,9 @@ public partial class SettingWindow : Window
             options.AiModel = ViewModel.AiModel;
             options.AiEndpoint = ViewModel.AiEndpoint;
             options.AiKey = ViewModel.AiKey;
-
+            options.YoudaoKey = ViewModel.YoudaoKey;
+            options.YoudaoAppSecret = ViewModel.YoudaoAppSecret;
+            
             using var stream = File.CreateText("./" + Constant.SettingDb);
             stream.WriteLine(JsonSerializer.Serialize(options));
             _manager!.Show(new Notification("成功", "保存配置成功", NotificationType.Success));
@@ -101,13 +105,14 @@ public partial class SettingWindow : Window
 
     private void SelectingItemsControl_OnSelectionChanged(object? sender, SelectionChangedEventArgs e)
     {
-        if (sender is ComboBox comboBox && comboBox.SelectedItem is SelectSettingTranslateDto selectedItem)
+        if (sender is ComboBox { SelectedItem: SelectSettingTranslateDto selectedItem })
         {
             if (_stackPanel != null)
             {
                 _stackPanel.IsVisible = false;
             }
 
+            // 规范Stack组件名称
             _stackPanel = this.FindControl<StackPanel>("StackPanel" + selectedItem.Value);
 
             if (_stackPanel != null)

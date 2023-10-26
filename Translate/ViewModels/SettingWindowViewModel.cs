@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using ReactiveUI;
 using Translate.Models;
@@ -8,6 +9,18 @@ namespace Translate.ViewModels;
 
 public class SettingWindowViewModel : ViewModelBase
 {
+    public string YoudaoKey
+    {
+        get => _youdaoKey;
+        set => this.RaiseAndSetIfChanged(ref _youdaoKey, value);
+    }
+
+    public string YoudaoAppSecret
+    {
+        get => _youdaoAppSecret;
+        set => this.RaiseAndSetIfChanged(ref _youdaoAppSecret, value);
+    }
+
     private ObservableCollection<SelectSettingTranslateDto> _selectSettingTranslate = new();
 
     public ObservableCollection<SelectSettingTranslateDto> SelectSettingTranslate
@@ -51,6 +64,17 @@ public class SettingWindowViewModel : ViewModelBase
     public LanguageDto? _language;
 
     private bool _automaticDetection;
+
+
+    /// <summary>
+    /// 有道key
+    /// </summary>
+    private string _youdaoKey;
+
+    /// <summary>
+    /// 有道Id
+    /// </summary>
+    private string _youdaoAppSecret;
 
     public bool AutomaticDetection
     {

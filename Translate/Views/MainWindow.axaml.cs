@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
@@ -13,32 +14,30 @@ using Translate.Models;
 using Translate.Options;
 using Translate.Services;
 using Translate.ViewModels;
-using HotKeyManager = Translate.Helper.HotKeyManager;
 
 namespace Translate.Views;
 
 public partial class MainWindow : Window, IDisposable
 {
     private readonly CancellationTokenSource _cancellationToken = new();
-    private HotKeyManager hotKeyManager;
+
+    private KeyboardHook KeyboardHook;
 
     public MainWindow()
     {
         InitializeComponent();
-        // hotKeyManager = new HotKeyManager();
-        //
-        // // 注册快捷键 CTRL+ALT+F
-        // hotKeyManager.RegisterHotKey(1, 0x11 | 0x12, 0x46);
-        //
-        // // 添加快捷键按下的处理器
-        // hotKeyManager.HotKeyPressed += (s, e) =>
-        // {
-        //     // 在这里添加你的代码
-        //     Console.WriteLine("Hotkey pressed!");
-        // };
 
-        // 在你的应用程序结束
+        KeyboardHook = new KeyboardHook();
+        KeyboardHook.Start();
 
+        KeyboardHook.KeyDownEvent += (hook, key) =>
+        {
+            if (KeyboardUtilities.IsCtrlAltPressed() && key == VirtualKeyCodes.VK_E)
+            {
+                var home = TranslateContext.GetService<HomeWindow>();
+                home.Show();
+            }
+        };
         ShowInTaskbar = false;
 
         Task.Run(async () =>
@@ -80,6 +79,12 @@ public partial class MainWindow : Window, IDisposable
                 ViewModel.Width = 50;
             };
         }
+    }
+
+
+    private static void KeyboardHook_KeyDownEvent(KeyboardHook sender, int keyCode)
+    {
+        Console.WriteLine("" + keyCode);
     }
 
     private MainWindowViewModel? ViewModel => DataContext as MainWindowViewModel;
@@ -183,6 +188,5 @@ public partial class MainWindow : Window, IDisposable
     public void Dispose()
     {
         // 在你的应用程序结束时，记得注销快捷键
-        // hotKeyManager.UnregisterHotKey(1);
     }
 }

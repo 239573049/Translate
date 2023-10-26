@@ -19,6 +19,12 @@
   <Application.Styles>
     <FluentTheme />
     <themes:MaterialTheme BaseTheme="Dark" PrimaryColor="Purple" SecondaryColor="Lime" />
+    <Style Selector="TextBlock">
+      <Setter Property="FontFamily" Value="AlibabaPuHuiTi"></Setter>
+    </Style>
+    <Style Selector="TextBox">
+      <Setter Property="FontFamily" Value="AlibabaPuHuiTi"></Setter>
+    </Style>
   </Application.Styles>
   <TrayIcon.Icons>
     <TrayIcons>
@@ -35,5 +41,6 @@
       </TrayIcon>
     </TrayIcons>
   </TrayIcon.Icons>
+  
 
 </Application>
