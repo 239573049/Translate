@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using ReactiveUI;
 using Token.Translate.Models;
@@ -10,10 +11,28 @@ namespace Token.Translate.ViewModels;
 
 public class SettingWindowViewModel : ViewModelBase
 {
+    public string ProxyServer
+    {
+        get => _proxyServer;
+        set => this.RaiseAndSetIfChanged(ref _proxyServer, value);
+    }
+
+    public string ProxyUsername
+    {
+        get => _proxyUsername;
+        set => this.RaiseAndSetIfChanged(ref _proxyUsername, value);
+    }
+
+    public string ProxyPassword
+    {
+        get => _proxyPassword;
+        set => this.RaiseAndSetIfChanged(ref _proxyPassword, value);
+    }
+
     public ObservableCollection<KeyboardHookDto> KeyList
     {
         get => _keyList;
-        set => this.RaiseAndSetIfChanged(ref _keyList,value);
+        set => this.RaiseAndSetIfChanged(ref _keyList, value);
     }
 
     public string YoudaoKey
@@ -169,7 +188,13 @@ public class SettingWindowViewModel : ViewModelBase
     public KeyboardHookDto HomeKey
     {
         get => _homeKey;
-        set => this.RaiseAndSetIfChanged(ref _homeKey,value);
+        set => this.RaiseAndSetIfChanged(ref _homeKey, value);
+    }
+
+    public bool UseProxy
+    {
+        get => _useProxy;
+        set => this.RaiseAndSetIfChanged(ref _useProxy, value);
     }
 
     /// <summary>
@@ -193,6 +218,12 @@ public class SettingWindowViewModel : ViewModelBase
     private KeyboardHookDto _homeKey;
 
     private ObservableCollection<KeyboardHookDto> _keyList = new();
-    
-    
+
+    private bool _useProxy;
+
+    private string _proxyServer;
+
+    private string _proxyUsername;
+
+    private string _proxyPassword;
 }

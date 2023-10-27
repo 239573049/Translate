@@ -34,6 +34,8 @@ public partial class HomeWindow : Window
     {
         base.Show();
 
+        Topmost = true;
+
         TextBoxMessage.Focus();
 
         _manager = new WindowNotificationManager(this) { MaxItems = 3 };

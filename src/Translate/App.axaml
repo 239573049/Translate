@@ -1,6 +1,6 @@
 <Application xmlns="https://github.com/avaloniaui"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             x:Class="Translate.App"
+             x:Class="Token.Translate.App"
              xmlns:local="using:Translate"
              xmlns:converters="clr-namespace:Translate.Converters"
              xmlns:themes="clr-namespace:Material.Styles.Themes;assembly=Material.Styles"
@@ -19,7 +19,6 @@
 
   <Application.Styles>
     <FluentTheme />
-    <themes:MaterialTheme BaseTheme="Dark" PrimaryColor="Purple" SecondaryColor="Lime" />
     <Style Selector="TextBlock">
       <Setter Property="FontFamily" Value="AlibabaPuHuiTi"></Setter>
     </Style>
@@ -27,6 +26,7 @@
       <Setter Property="FontFamily" Value="AlibabaPuHuiTi"></Setter>
     </Style>
   </Application.Styles>
+  
   <TrayIcon.Icons>
     <TrayIcons>
       <TrayIcon Clicked="TrayIcon_OnClicked" Icon="/Assets/translate.ico"

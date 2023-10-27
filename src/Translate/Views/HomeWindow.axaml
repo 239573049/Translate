@@ -4,6 +4,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:assists="clr-namespace:Material.Styles.Assists;assembly=Material.Styles"
         xmlns:viewModels1="clr-namespace:Token.Translate.ViewModels"
+        xmlns:themes="clr-namespace:Material.Styles.Themes;assembly=Material.Styles"
         mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
         x:Class="Translate.HomeWindow"
         RequestedThemeVariant="Dark"
@@ -25,6 +26,7 @@
 
     <Window.Styles>
         <StyleInclude Source="/Styles/TextBoxStyle.axaml"></StyleInclude>
+        <themes:MaterialTheme PrimaryColor="Teal" SecondaryColor="Lime" />
     </Window.Styles>
     <Panel>
         <ExperimentalAcrylicBorder IsHitTestVisible="False">

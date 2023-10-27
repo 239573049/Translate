@@ -3,6 +3,7 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:viewModels="clr-namespace:Token.Translate.ViewModels"
+        xmlns:themes="clr-namespace:Material.Styles.Themes;assembly=Material.Styles"
         mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
         x:Class="Translate.Views.MainWindow"
         x:DataType="viewModels:MainWindowViewModel"
@@ -27,6 +28,7 @@
             <Setter Property="Background" Value="Transparent" />
             <Setter Property="BorderBrush" Value="Transparent" />
         </Style>
+        <themes:MaterialTheme PrimaryColor="Teal" SecondaryColor="Lime" />
     </Window.Styles>
 
     <Design.DataContext>

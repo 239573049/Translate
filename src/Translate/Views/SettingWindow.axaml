@@ -4,6 +4,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:assists="clr-namespace:Material.Styles.Assists;assembly=Material.Styles"
         xmlns:viewModels1="clr-namespace:Token.Translate.ViewModels"
+        xmlns:themes="clr-namespace:Material.Styles.Themes;assembly=Material.Styles"
         mc:Ignorable="d" d:DesignWidth="500" d:DesignHeight="450"
         x:Class="Token.Translate.Views.SettingWindow"
         RequestedThemeVariant="Dark"
@@ -13,8 +14,8 @@
         WindowStartupLocation="CenterScreen"
         Width="500"
         MinWidth="500"
-        Height="560"
-        MinHeight="560"
+        Height="720"
+        MinHeight="720"
         Icon="../Assets/setting.png"
         Title="SettingWindow"
         x:DataType="viewModels1:SettingWindowViewModel">
@@ -23,6 +24,9 @@
              to set the actual DataContext for runtime, set the DataContext property in code (look at App.axaml.cs) -->
         <viewModels1:SettingWindowViewModel />
     </Design.DataContext>
+    <Window.Styles>
+        <themes:MaterialTheme PrimaryColor="Teal" SecondaryColor="Lime" />
+    </Window.Styles>
     <Panel>
         <ExperimentalAcrylicBorder IsHitTestVisible="False">
             <ExperimentalAcrylicBorder.Material>
@@ -33,7 +37,7 @@
                     MaterialOpacity="0.65" />
             </ExperimentalAcrylicBorder.Material>
         </ExperimentalAcrylicBorder>
-        <TabControl Name="TabControl" Margin="15" TabStripPlacement="Top">
+        <TabControl Name="TabControl" Margin="15,25,15,15" TabStripPlacement="Top">
             <TabItem Header="翻译设置">
                 <StackPanel Spacing="10">
                     <TextBlock FontSize="25" FontWeight="Bold">
@@ -43,6 +47,7 @@
                     <WrapPanel>
                         <ComboBox Theme="{StaticResource MaterialOutlineComboBox}"
                                   assists:ComboBoxAssist.Label="使用翻译服务"
+                                  Classes="dense"
                                   SelectionChanged="SelectingItemsControl_OnSelectionChanged"
                                   SelectedValue="{Binding SelectSetting}" Width="150"
                                   ItemsSource="{Binding SelectSettingTranslate}">
@@ -80,40 +85,52 @@
                     <WrapPanel>
                     </WrapPanel>
                     <CheckBox
-                        Content="自动翻译"
+                        Content="自动源语言识别"
                         IsChecked="{Binding AutomaticDetection}"
                         Theme="{DynamicResource CardCheckBox}" />
                     <Border Height="1" Background="Black"></Border>
                     <StackPanel Name="StackPanelMicrosoftLanguage" IsVisible="False">
                         <TextBlock>微软翻译设置</TextBlock>
-                        <TextBox UseFloatingWatermark="True" Classes="outline" Theme="{StaticResource OutlineTextBox}"
+                        <TextBox UseFloatingWatermark="True" Classes="outline dense" Theme="{StaticResource OutlineTextBox}"
                                  assists:TextFieldAssist.Label="请输入您的端点（Endpoint）" Text="{Binding MicrosoftEndpoint}" />
-                        <TextBox Text="{Binding MicrosoftKey}" UseFloatingWatermark="True" Classes="outline"
+                        <TextBox Text="{Binding MicrosoftKey}" UseFloatingWatermark="True" Classes="outline dense"
                                  Theme="{StaticResource OutlineTextBox}"
                                  assists:TextFieldAssist.Label="请输入您的Key（Key）" />
-                        <TextBox Text="{Binding MicrosoftLocation}" UseFloatingWatermark="True" Classes="outline"
+                        <TextBox Text="{Binding MicrosoftLocation}" UseFloatingWatermark="True" Classes="outline dense"
                                  Theme="{StaticResource OutlineTextBox}"
                                  assists:TextFieldAssist.Label="请输入您的location（location）可空" />
                         <Border Height="1" Background="Black"></Border>
                     </StackPanel>
                     <StackPanel Name="StackPanelYouDaoLanguage" IsVisible="False">
                         <TextBlock>有道翻译设置</TextBlock>
-                        <TextBox UseFloatingWatermark="True" Classes="outline" Theme="{StaticResource OutlineTextBox}"
+                        <TextBox UseFloatingWatermark="True" Classes="outline dense" Theme="{StaticResource OutlineTextBox}"
                                  assists:TextFieldAssist.Label="请输入您的AppKey（AppKey）" Text="{Binding YoudaoKey}" />
-                        <TextBox UseFloatingWatermark="True" Classes="outline" Theme="{StaticResource OutlineTextBox}"
+                        <TextBox UseFloatingWatermark="True" Classes="outline dense" Theme="{StaticResource OutlineTextBox}"
                                  assists:TextFieldAssist.Label="请输入您的AppSecret（AppSecret）"
                                  Text="{Binding YoudaoAppSecret}" />
                         <Border Height="1" Background="Black"></Border>
                     </StackPanel>
                     <StackPanel Name="StackPanelAILanguage" IsVisible="False">
                         <TextBlock>AI翻译设置</TextBlock>
-                        <TextBox UseFloatingWatermark="True" Classes="outline" Theme="{StaticResource OutlineTextBox}"
+                        <TextBox UseFloatingWatermark="True" Classes="outline dense" Theme="{StaticResource OutlineTextBox}"
                                  assists:TextFieldAssist.Label="请输入您的ChatGPT Endpoint" Text="{Binding AiEndpoint}" />
-                        <TextBox UseFloatingWatermark="True" Classes="outline" Theme="{StaticResource OutlineTextBox}"
+                        <TextBox UseFloatingWatermark="True" Classes="outline dense" Theme="{StaticResource OutlineTextBox}"
                                  assists:TextFieldAssist.Label="请输入您的ChatGPTAppKey（AppKey）" Text="{Binding AiKey}" />
-                        <TextBox UseFloatingWatermark="True" Classes="outline" Theme="{StaticResource OutlineTextBox}"
+                        <TextBox UseFloatingWatermark="True" Classes="outline dense" Theme="{StaticResource OutlineTextBox}"
                                  assists:TextFieldAssist.Label="翻译使用模型(Model)" Text="{Binding AiModel}" />
                         <Border Height="1" Background="Black"></Border>
+                        <CheckBox
+                            Content="使用代理"
+                            IsChecked="{Binding UseProxy}"
+                            Theme="{DynamicResource CardCheckBox}" />
+                        <StackPanel IsVisible="{Binding UseProxy}">
+                            <TextBox UseFloatingWatermark="True" Classes="outline dense" Theme="{StaticResource OutlineTextBox}"
+                                     assists:TextFieldAssist.Label="请输入代理服务地址" Text="{Binding ProxyServer}" />
+                            <TextBox UseFloatingWatermark="True" Classes="outline dense" Theme="{StaticResource OutlineTextBox}"
+                                     assists:TextFieldAssist.Label="请输入代理账号（为空则不验证）" Text="{Binding ProxyUsername}" />
+                            <TextBox UseFloatingWatermark="True" Classes="outline dense" Theme="{StaticResource OutlineTextBox}"
+                                     assists:TextFieldAssist.Label="请输入代理密码（为空则不验证）" Text="{Binding ProxyPassword}" />
+                        </StackPanel>
                     </StackPanel>
                     <Button Click="Save_OnClick" Classes="Success">保存设置</Button>
                 </StackPanel>

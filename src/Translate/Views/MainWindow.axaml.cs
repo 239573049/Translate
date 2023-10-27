@@ -43,7 +43,14 @@ public partial class MainWindow : Window, IDisposable
                     if (option.HomeKey == key)
                     {
                         var home = TranslateContext.GetService<HomeWindow>();
-                        home.Show();
+                        if (!home.IsVisible)
+                        {
+                            home.Show();
+                        }
+                        else
+                        {
+                            home.Hide();
+                        }
                     }
                 }
             };
