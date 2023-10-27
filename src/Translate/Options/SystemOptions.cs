@@ -1,6 +1,4 @@
-﻿using System.Collections.Generic;
-using System.Text.Json.Serialization;
-using Token.Translate.Models;
+﻿using Token.Translate.Services;
 using Translate;
 using Translate.Services;
 
@@ -72,14 +70,23 @@ public class SystemOptions
     /// 首页快捷键
     /// </summary>
     public VirtualKeyCodes HomeKey { get; set; } = VirtualKeyCodes.VK_E;
-}
 
+    /// <summary>
+    /// 是否使用代理
+    /// </summary>
+    public bool UseProxy { get; set; }
 
-[JsonSerializable(typeof(SystemOptions), GenerationMode = JsonSourceGenerationMode.Metadata)]
-[JsonSourceGenerationOptions(WriteIndented = true)]
-[JsonSerializable(typeof(string), GenerationMode = JsonSourceGenerationMode.Metadata)]
-[JsonSerializable(typeof(VirtualKeyCodes), GenerationMode = JsonSourceGenerationMode.Metadata)]
-[JsonSerializable(typeof(List<SystemOptions>), GenerationMode = JsonSourceGenerationMode.Metadata)]
-public partial class SystemOptionsContext : JsonSerializerContext
-{
+    /// <summary>
+    /// 代理服务
+    /// </summary>
+    public string ProxyServer { get; set; }
+
+    public string ProxyUsername { get; set; }
+
+    public string ProxyPassword { get; set; }
+
+    /// <summary>
+    /// 中英互相翻译
+    /// </summary>
+    public bool TranslationChineseAndEnglish { get; set; }
 }

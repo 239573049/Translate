@@ -1,8 +1,9 @@
 ﻿using System;
 using System.Diagnostics;
 using System.Runtime.InteropServices;
+using Translate.Services;
 
-namespace Translate.Services;
+namespace Token.Translate.Services;
 
 /// <summary>
 /// 键盘钩子

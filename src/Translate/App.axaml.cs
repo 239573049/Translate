@@ -11,6 +11,7 @@ using Avalonia.Markup.Xaml;
 using Microsoft.Extensions.DependencyInjection;
 using Token.Translate.Models;
 using Token.Translate.Options;
+using Token.Translate.Services;
 using Token.Translate.ViewModels;
 using Translate;
 using Translate.Services;

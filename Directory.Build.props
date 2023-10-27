@@ -2,7 +2,7 @@
     <PropertyGroup>
         <AvaloniaVersion>11.0.2</AvaloniaVersion>
         <DotNetVersion>8.0.0-rc.2.23479.6</DotNetVersion>
-        <Version>0.0.0.2</Version>
+        <Version>0.0.0.3</Version>
         <RootNamespace>Token.Translate</RootNamespace>
         <AssemblyName>Token.Translate</AssemblyName>
         <Authors>Token</Authors>

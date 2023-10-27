@@ -6,12 +6,15 @@ using System.Net.Http.Json;
 using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
+using Token.Translate.Helper;
 using Token.Translate.Options;
+using Translate;
 using Translate.Exceptions;
 using Translate.Models;
+using Translate.Services;
 using Translate.Services.Dto;
 
-namespace Translate.Services;
+namespace Token.Translate.Services;
 
 public class YoudaoTranslateService(IHttpClientFactory httpClientFactory) : ITranslateService
 {
@@ -21,11 +24,38 @@ public class YoudaoTranslateService(IHttpClientFactory httpClientFactory) : ITra
     {
         var systemOptions = TranslateContext.GetService<SystemOptions>();
 
+
+        var uri = systemOptions.MicrosoftEndpoint.TrimEnd('/') + "/translate?api-version=3.0&to=" +
+                  systemOptions.TargetLanguage;
+
+        string targe;
+        string language;
+        if (systemOptions.TranslationChineseAndEnglish)
+        {
+
+            if (StringHelper.IsEnglish(value))
+            {
+                language = "en";
+                targe = "zh-Hans";
+            }
+            else
+            {
+                targe = "en";
+                language = "zh-Hans";
+            }
+        }
+        else
+        {
+            language = systemOptions.AutomaticDetection ? "auto" : systemOptions.Language;
+            targe = systemOptions.TargetLanguage;
+        }
+
+
         var param = new Dictionary<string, string[]>()
         {
             { "q", new[] { value } },
-            { "from", new[] { systemOptions.AutomaticDetection ? "auto" : systemOptions.Language } },
-            { "to", new[] { systemOptions.TargetLanguage } }
+            { "from", new[] { language } },
+            { "to", new[] { targe } }
         };
 
         int i = 0;
@@ -48,7 +78,7 @@ public class YoudaoTranslateService(IHttpClientFactory httpClientFactory) : ITra
             }
         }
 
-        var para = new StringContent(content.ToString(),Encoding.UTF8,"application/x-www-form-urlencoded");
+        var para = new StringContent(content.ToString(), Encoding.UTF8, "application/x-www-form-urlencoded");
 
         var response =
             await _httpClient.PostAsync("https://openapi.youdao.com/api",
@@ -57,7 +87,7 @@ public class YoudaoTranslateService(IHttpClientFactory httpClientFactory) : ITra
         if (response.IsSuccessStatusCode)
         {
             var result = await response.Content.ReadFromJsonAsync<YoudaoTranslateDto>();
-            
+
             return new TranslateDto()
             {
                 Value = value,

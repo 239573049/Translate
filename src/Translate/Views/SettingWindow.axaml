@@ -59,7 +59,8 @@
                         </ComboBox>
                     </WrapPanel>
 
-                    <WrapPanel>
+                    <WrapPanel 
+                        IsVisible="{Binding !TranslationChineseAndEnglish}">
                         <WrapPanel IsVisible="{Binding !AutomaticDetection}">
                             <ComboBox Theme="{StaticResource MaterialOutlineComboBox}"
                                       assists:ComboBoxAssist.Label="选择语言" SelectedValue="{Binding Language}"
@@ -84,10 +85,20 @@
                     </WrapPanel>
                     <WrapPanel>
                     </WrapPanel>
-                    <CheckBox
-                        Content="自动源语言识别"
-                        IsChecked="{Binding AutomaticDetection}"
-                        Theme="{DynamicResource CardCheckBox}" />
+                  <WrapPanel>
+
+                      <CheckBox
+                          Content="自动源语言识别"
+                          IsChecked="{Binding AutomaticDetection}"
+                          IsVisible="{Binding !TranslationChineseAndEnglish}"
+                          Theme="{DynamicResource CardCheckBox}" />
+
+                      <CheckBox
+                          Margin="20,0,0,0"
+                          Content="中英互翻"
+                          IsChecked="{Binding TranslationChineseAndEnglish}"
+                          Theme="{DynamicResource CardCheckBox}" />
+                  </WrapPanel>
                     <Border Height="1" Background="Black"></Border>
                     <StackPanel Name="StackPanelMicrosoftLanguage" IsVisible="False">
                         <TextBlock>微软翻译设置</TextBlock>

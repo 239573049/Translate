@@ -226,4 +226,18 @@ public class SettingWindowViewModel : ViewModelBase
     private string _proxyUsername;
 
     private string _proxyPassword;
+
+    /// <summary>
+    /// 中英互相翻译
+    /// </summary>
+    private bool _translationChineseAndEnglish;
+
+    /// <summary>
+    /// 中英互相翻译
+    /// </summary>
+    public bool TranslationChineseAndEnglish
+    {
+        get => _translationChineseAndEnglish;
+        set => this.RaiseAndSetIfChanged(ref _translationChineseAndEnglish, value);
+    }
 }

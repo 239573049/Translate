@@ -8,6 +8,7 @@ using System.Linq;
 using System.Text.Json;
 using Token.Translate.Models;
 using Token.Translate.Options;
+using Token.Translate.Services;
 using Token.Translate.Services.Dto;
 using Token.Translate.ViewModels;
 using Translate;
@@ -58,6 +59,11 @@ public partial class SettingWindow : Window
             ViewModel.MicrosoftKey = options.MicrosoftKey;
             ViewModel.MicrosoftEndpoint = options.MicrosoftEndpoint;
             ViewModel.YoudaoKey = options.YoudaoKey;
+            ViewModel.UseProxy = options.UseProxy;
+            ViewModel.ProxyServer = options.ProxyServer;
+            ViewModel.ProxyUsername = options.ProxyUsername;
+            ViewModel.TranslationChineseAndEnglish = options.TranslationChineseAndEnglish;
+            ViewModel.ProxyPassword = options.ProxyPassword;
             ViewModel.YoudaoAppSecret = options.YoudaoAppSecret;
             ViewModel.SelectSetting = ViewModel.SelectSettingTranslate.First(x =>
                 x.Value == options.LanguageService);
@@ -102,6 +108,11 @@ public partial class SettingWindow : Window
             options.YoudaoKey = ViewModel.YoudaoKey;
             options.YoudaoAppSecret = ViewModel.YoudaoAppSecret;
             options.HomeKey = ViewModel.HomeKey.KeyCodes;
+            options.UseProxy = ViewModel.UseProxy;
+            options.ProxyServer = ViewModel.ProxyServer;
+            options.ProxyUsername= ViewModel.ProxyUsername;
+            options.ProxyPassword = ViewModel.ProxyPassword;
+            options.TranslationChineseAndEnglish = ViewModel.TranslationChineseAndEnglish;
 
             using var stream = File.CreateText("./" + Constant.SettingDb);
             stream.WriteLine(JsonSerializer.Serialize(options));
