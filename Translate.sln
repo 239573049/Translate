@@ -1,8 +1,14 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Translate", "Translate\Translate.csproj", "{0F40ECDF-3784-409A-810B-F2AABD87AD99}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Translate", "src\Translate\Translate.csproj", "{0F40ECDF-3784-409A-810B-F2AABD87AD99}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{1C4AE4FD-EF76-4EF1-9C6B-2E9DC17BCB12}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "solution items", "solution items", "{2FE0A42B-4B36-441B-AD2E-EDCC36BDC20D}"
+	ProjectSection(SolutionItems) = preProject
+		Directory.Build.props = Directory.Build.props
+		README.md = README.md
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
