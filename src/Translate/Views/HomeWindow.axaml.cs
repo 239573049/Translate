@@ -8,10 +8,11 @@ using Avalonia.Interactivity;
 using Token.Translate.Models;
 using Token.Translate.Options;
 using Token.Translate.ViewModels;
+using Translate;
 using Translate.Models;
 using Translate.Services;
 
-namespace Translate;
+namespace Token.Translate.Views;
 
 public partial class HomeWindow : Window
 {
@@ -69,8 +70,6 @@ public partial class HomeWindow : Window
 
     private async Task ExecuteAsync()
     {
-        ViewModel.Translate = null;
-        ViewModel.IsLoading = true;
 
         var options = TranslateContext.GetService<SystemOptions>();
 
@@ -131,6 +130,8 @@ public partial class HomeWindow : Window
             }
         }
 
+        ViewModel.Translate = null;
+        ViewModel.IsLoading = true;
 
         var translateService =
             TranslateContext.GetKeyedService<ITranslateService>(options.LanguageService);

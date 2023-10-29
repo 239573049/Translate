@@ -1,3 +1,7 @@
+using Avalonia;
+using Avalonia.Controls.ApplicationLifetimes;
+using Avalonia.Markup.Xaml;
+using Microsoft.Extensions.DependencyInjection;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -5,17 +9,13 @@ using System.Reflection;
 using System.Runtime.InteropServices;
 using System.Text.Json;
 using System.Text.Json.Serialization;
-using Avalonia;
-using Avalonia.Controls.ApplicationLifetimes;
-using Avalonia.Markup.Xaml;
-using Microsoft.Extensions.DependencyInjection;
 using Token.Translate.Models;
 using Token.Translate.Options;
 using Token.Translate.Services;
 using Token.Translate.ViewModels;
 using Translate;
 using Translate.Services;
-using Translate.Views;
+using HomeWindow = Token.Translate.Views.HomeWindow;
 using JsonSerializer = System.Text.Json.JsonSerializer;
 using SettingWindow = Token.Translate.Views.SettingWindow;
 
@@ -82,10 +82,8 @@ public partial class App : Application
     {
         if (ApplicationLifetime is IClassicDesktopStyleApplicationLifetime desktop)
         {
-            desktop.MainWindow = new MainWindow
-            {
-                DataContext = new MainWindowViewModel(),
-            };
+            var home = TranslateContext.GetService<HomeWindow>();
+            desktop.MainWindow = home;
         }
 
         base.OnFrameworkInitializationCompleted();

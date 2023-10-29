@@ -6,7 +6,7 @@
         xmlns:viewModels1="clr-namespace:Token.Translate.ViewModels"
         xmlns:themes="clr-namespace:Material.Styles.Themes;assembly=Material.Styles"
         mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
-        x:Class="Translate.HomeWindow"
+        x:Class="Token.Translate.Views.HomeWindow"
         RequestedThemeVariant="Dark"
         TransparencyLevelHint="AcrylicBlur"
         ExtendClientAreaToDecorationsHint="True"

@@ -5,7 +5,7 @@ namespace Translate.Exceptions;
 public class BusinessException : Exception
 {
     public int Code { get; set; }
-    
+
     public BusinessException()
     {
     }

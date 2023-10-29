@@ -6,7 +6,7 @@ public class TranslateDto
     /// 内容
     /// </summary>
     public string Value { get; set; }
-    
+
     /// <summary>
     /// 内容语种
     /// </summary>

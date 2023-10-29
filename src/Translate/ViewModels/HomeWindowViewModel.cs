@@ -28,7 +28,7 @@ public class HomeWindowViewModel : ViewModelBase
     public bool IsVisibleQueryResult
     {
         get => _isVisibleQueryResult;
-        set => this.RaiseAndSetIfChanged(ref _isVisibleQueryResult,value);
+        set => this.RaiseAndSetIfChanged(ref _isVisibleQueryResult, value);
     }
 
     private bool _isVisibleQueryResult;
@@ -44,9 +44,9 @@ public class HomeWindowViewModel : ViewModelBase
     public bool IsLoading
     {
         get => _isLoading;
-        set => this.RaiseAndSetIfChanged(ref _isLoading,value);
+        set => this.RaiseAndSetIfChanged(ref _isLoading, value);
     }
 
     private bool _isLoading;
-    
+
 }

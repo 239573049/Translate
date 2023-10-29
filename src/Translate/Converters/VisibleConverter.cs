@@ -1,7 +1,6 @@
 ﻿using System;
 using System.ComponentModel;
 using System.Globalization;
-using Avalonia.Data.Converters;
 
 namespace Translate.Converters;
 

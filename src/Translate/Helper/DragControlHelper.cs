@@ -1,10 +1,10 @@
-﻿using System;
-using System.Collections.Concurrent;
-using Avalonia;
+﻿using Avalonia;
 using Avalonia.Controls;
 using Avalonia.Input;
 using Avalonia.Threading;
 using Avalonia.VisualTree;
+using System;
+using System.Collections.Concurrent;
 
 namespace Token.Translate.Helper;
 

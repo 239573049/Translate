@@ -1,6 +1,4 @@
-﻿using Translate.Services;
-
-namespace Token.Translate.Services.Dto;
+﻿namespace Token.Translate.Services.Dto;
 
 public class KeyboardHookDto
 {

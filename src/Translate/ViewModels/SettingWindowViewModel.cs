@@ -1,10 +1,8 @@
-﻿using System;
+﻿using ReactiveUI;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using ReactiveUI;
 using Token.Translate.Models;
 using Token.Translate.Services.Dto;
-using Translate.Models;
 using Translate.Services.Dto;
 
 namespace Token.Translate.ViewModels;
