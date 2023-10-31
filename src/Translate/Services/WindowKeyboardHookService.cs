@@ -59,6 +59,8 @@ public class WindowKeyboardHookService : IKeyboardHookService
 
     public void Start()
     {
+#if !DEBUG
+
         // 安装键盘钩子
         if (hKeyboardHook == 0)
         {
@@ -87,6 +89,7 @@ public class WindowKeyboardHookService : IKeyboardHookService
                 throw new Exception("安装键盘钩子失败");
             }
         }
+#endif
     }
 
     public void Stop()
@@ -151,8 +154,8 @@ public static class KeyboardUtilities
 {
     public static bool IsCtrlAltPressed()
     {
-        return (GetKeyState(VirtualKeyCodes.VK_CONTROL) < 0) &&
-               (GetKeyState(VirtualKeyCodes.VK_MENU) < 0);
+        return (GetKeyState(VirtualKeyCodes.CONTROL) < 0) &&
+               (GetKeyState(VirtualKeyCodes.MENU) < 0);
     }
 
     [DllImport("user32.dll")]
@@ -162,76 +165,76 @@ public static class KeyboardUtilities
 public enum VirtualKeyCodes
 {
     // 0x0A-0x0B: 预留
-    VK_CLEAR = 0x0C, // CLEAR 键
-    VK_RETURN = 0x0D, // Enter 键
+    CLEAR = 0x0C, // CLEAR 键
+    RETURN = 0x0D, // Enter 键
 
     // 0x0E-0x0F: 未分配
-    VK_SHIFT = 0x10, // SHIFT 键
-    VK_CONTROL = 0x11, // CTRL 键
-    VK_MENU = 0x12, // Alt 键
-    VK_PAUSE = 0x13, // PAUSE 键
-    VK_CAPITAL = 0x14, // CAPS LOCK 键
-    VK_KANA = 0x15, // IME Kana 模式
-    VK_HANGUL = 0x15, // IME Hanguel 模式
-    VK_IME_ON = 0x16, // IME 打开
-    VK_JUNJA = 0x17, // IME Junja 模式
-    VK_FINAL = 0x18, // IME 最终模式
-    VK_HANJA = 0x19, // IME Hanja 模式
-    VK_KANJI = 0x19, // IME Kanji 模式
-    VK_IME_OFF = 0x1A, // IME 关闭
-    VK_ESCAPE = 0x1B, // ESC 键
-    VK_CONVERT = 0x1C, // IME 转换
-    VK_NONCONVERT = 0x1D, // IME 不转换
-    VK_ACCEPT = 0x1E, // IME 接受
-    VK_MODECHANGE = 0x1F, // IME 模式更改请求
-    VK_SPACE = 0x20, // 空格键
-    VK_PRIOR = 0x21, // PAGE UP 键
-    VK_NEXT = 0x22, // PAGE DOWN 键
-    VK_END = 0x23, // END 键
-    VK_HOME = 0x24, // HOME 键
-    VK_LEFT = 0x25, // LEFT ARROW 键
-    VK_UP = 0x26, // UP ARROW 键
-    VK_RIGHT = 0x27, // RIGHT ARROW 键
-    VK_DOWN = 0x28, // DOWN ARROW 键
-    VK_SELECT = 0x29, // SELECT 键
-    VK_PRINT = 0x2A, // PRINT 键
-    VK_EXECUTE = 0x2B, // EXECUTE 键
-    VK_SNAPSHOT = 0x2C, // PRINT SCREEN 键
-    VK_INSERT = 0x2D, // INS 键
-    VK_DELETE = 0x2E, // DEL 键
-    VK_HELP = 0x2F, // HELP 键
+    SHIFT = 0x10, // SHIFT 键
+    CONTROL = 0x11, // CTRL 键
+    MENU = 0x12, // Alt 键
+    PAUSE = 0x13, // PAUSE 键
+    CAPITAL = 0x14, // CAPS LOCK 键
+    KANA = 0x15, // IME Kana 模式
+    HANGUL = 0x15, // IME Hanguel 模式
+    IME_ON = 0x16, // IME 打开
+    JUNJA = 0x17, // IME Junja 模式
+    FINAL = 0x18, // IME 最终模式
+    HANJA = 0x19, // IME Hanja 模式
+    KANJI = 0x19, // IME Kanji 模式
+    IME_OFF = 0x1A, // IME 关闭
+    ESCAPE = 0x1B, // ESC 键
+    CONVERT = 0x1C, // IME 转换
+    NONCONVERT = 0x1D, // IME 不转换
+    ACCEPT = 0x1E, // IME 接受
+    MODECHANGE = 0x1F, // IME 模式更改请求
+    SPACE = 0x20, // 空格键
+    PRIOR = 0x21, // PAGE UP 键
+    NEXT = 0x22, // PAGE DOWN 键
+    END = 0x23, // END 键
+    HOME = 0x24, // HOME 键
+    LEFT = 0x25, // LEFT ARROW 键
+    UP = 0x26, // UP ARROW 键
+    RIGHT = 0x27, // RIGHT ARROW 键
+    DOWN = 0x28, // DOWN ARROW 键
+    SELECT = 0x29, // SELECT 键
+    PRINT = 0x2A, // PRINT 键
+    EXECUTE = 0x2B, // EXECUTE 键
+    SNAPSHOT = 0x2C, // PRINT SCREEN 键
+    INSERT = 0x2D, // INS 键
+    DELETE = 0x2E, // DEL 键
+    HELP = 0x2F, // HELP 键
 
-    VK_A = 0x41, // A 键
-    VK_B = 0x42, // B 键
-    VK_C = 0x43, // C 键
-    VK_D = 0x44, // D 键
-    VK_E = 0x45, // E 键
-    VK_F = 0x46, // F 键
-    VK_G = 0x47, // G 键
-    VK_H = 0x48, // H 键
-    VK_I = 0x49, // I 键
-    VK_J = 0x4A, // J 键
-    VK_K = 0x4B, // K 键
-    VK_L = 0x4C, // L 键
-    VK_M = 0x4D, // M 键
-    VK_N = 0x4E, // N 键
-    VK_O = 0x4F, // O 键
-    VK_P = 0x50, // P 键
-    VK_Q = 0x51, // Q 键
-    VK_R = 0x52, // R 键
-    VK_S = 0x53, // S 键
-    VK_T = 0x54, // T 键
-    VK_U = 0x55, // U 键
-    VK_V = 0x56, // V 键
-    VK_W = 0x57, // W 键
-    VK_X = 0x58, // X 键
-    VK_Y = 0x59, // Y 键
-    VK_Z = 0x5A, // Z 键
+    A = 0x41, // A 键
+    B = 0x42, // B 键
+    C = 0x43, // C 键
+    D = 0x44, // D 键
+    E = 0x45, // E 键
+    F = 0x46, // F 键
+    G = 0x47, // G 键
+    H = 0x48, // H 键
+    I = 0x49, // I 键
+    J = 0x4A, // J 键
+    K = 0x4B, // K 键
+    L = 0x4C, // L 键
+    M = 0x4D, // M 键
+    N = 0x4E, // N 键
+    O = 0x4F, // O 键
+    P = 0x50, // P 键
+    Q = 0x51, // Q 键
+    R = 0x52, // R 键
+    S = 0x53, // S 键
+    T = 0x54, // T 键
+    U = 0x55, // U 键
+    V = 0x56, // V 键
+    W = 0x57, // W 键
+    X = 0x58, // X 键
+    Y = 0x59, // Y 键
+    Z = 0x5A, // Z 键
 
     // 0x92-0x96: OEM 特有
     // 0x97-0x9F: 未分配
-    VK_LSHIFT = 0xA0, // 左 SHIFT 键
-    VK_RSHIFT = 0xA1, // 右 SHIFT 键
-    VK_LCONTROL = 0xA2, // 左 Ctrl 键
-    VK_RCONTROL = 0xA3, // 右 Ctrl 键
+    LSHIFT = 0xA0, // 左 SHIFT 键
+    RSHIFT = 0xA1, // 右 SHIFT 键
+    LCONTROL = 0xA2, // 左 Ctrl 键
+    RCONTROL = 0xA3, // 右 Ctrl 键
 }

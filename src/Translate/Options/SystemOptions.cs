@@ -68,7 +68,7 @@ public class SystemOptions
     /// <summary>
     /// 首页快捷键
     /// </summary>
-    public VirtualKeyCodes HomeKey { get; set; } = VirtualKeyCodes.VK_E;
+    public VirtualKeyCodes HomeKey { get; set; } = VirtualKeyCodes.E;
 
     /// <summary>
     /// 是否使用代理
