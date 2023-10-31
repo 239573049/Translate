@@ -3,7 +3,7 @@
 public class MicrosoftTranslateDto
 {
     public DetectedLanguage detectedLanguage { get; set; }
-    
+
     public Translations[] translations { get; set; }
 }
 
@@ -22,7 +22,7 @@ public class Translations
     /// 翻译内容
     /// </summary>
     public string text { get; set; }
-    
+
     /// <summary>
     /// 翻译目标语种
     /// </summary>

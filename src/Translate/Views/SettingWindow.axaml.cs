@@ -12,7 +12,6 @@ using Token.Translate.Services;
 using Token.Translate.Services.Dto;
 using Token.Translate.ViewModels;
 using Translate;
-using Translate.Services;
 using Translate.Services.Dto;
 
 namespace Token.Translate.Views;
@@ -110,7 +109,7 @@ public partial class SettingWindow : Window
             options.HomeKey = ViewModel.HomeKey.KeyCodes;
             options.UseProxy = ViewModel.UseProxy;
             options.ProxyServer = ViewModel.ProxyServer;
-            options.ProxyUsername= ViewModel.ProxyUsername;
+            options.ProxyUsername = ViewModel.ProxyUsername;
             options.ProxyPassword = ViewModel.ProxyPassword;
             options.TranslationChineseAndEnglish = ViewModel.TranslationChineseAndEnglish;
 

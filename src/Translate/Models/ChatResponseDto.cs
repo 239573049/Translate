@@ -40,7 +40,7 @@ public class Usage
     /// 请求使用的token
     /// </summary>
     public int prompt_tokens { get; set; }
-    
+
     /// <summary>
     /// 使用的总token
     /// </summary>

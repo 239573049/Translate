@@ -1,6 +1,4 @@
-﻿using System.Text.RegularExpressions;
-
-namespace Token.Translate.Helper;
+﻿namespace Token.Translate.Helper;
 
 public class StringHelper
 {
