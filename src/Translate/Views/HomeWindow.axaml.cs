@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -7,19 +8,46 @@ using Avalonia.Input;
 using Avalonia.Interactivity;
 using Token.Translate.Models;
 using Token.Translate.Options;
+using Token.Translate.Services;
 using Token.Translate.ViewModels;
 using Translate.Models;
 using Translate.Services;
 
 namespace Translate;
 
-public partial class HomeWindow : Window
+public partial class HomeWindow : Window, IDisposable
 {
     private WindowNotificationManager? _manager;
+
+    private readonly IKeyboardHookService? _keyboardHookService;
 
     public HomeWindow()
     {
         InitializeComponent();
+
+        _keyboardHookService = TranslateContext.GetService<IKeyboardHookService>();
+        _keyboardHookService?.Start();
+
+        if (_keyboardHookService != null)
+            _keyboardHookService.KeyDownEvent += (key) =>
+            {
+                if (KeyboardUtilities.IsCtrlAltPressed())
+                {
+                    var option = TranslateContext.GetService<SystemOptions>();
+                    if (option.HomeKey == key)
+                    {
+                        var home = TranslateContext.GetService<HomeWindow>();
+                        if (!home.IsVisible)
+                        {
+                            home.Show();
+                        }
+                        else
+                        {
+                            home.Hide();
+                        }
+                    }
+                }
+            };
 
         this.Closing += MainWindow_Closing;
     }
@@ -170,5 +198,10 @@ public partial class HomeWindow : Window
         {
             Close();
         }
+    }
+
+    public void Dispose()
+    {
+        _keyboardHookService?.Dispose();
     }
 }
