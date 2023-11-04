@@ -1,0 +1,14 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d" d:DesignWidth="400" d:DesignHeight="450"
+             x:Class="Token.Translate.Pages.About">
+  <StackPanel>
+
+    <TextBlock TextWrapping="Wrap" FontSize="20" FontWeight="Bold" Margin="10">
+      一个开源免费的翻译工具支持多个源翻译，甚至于支持AI大模型进行翻译，支持Window，Linux，Mac等操作系统。
+    </TextBlock>
+    <TextBlock PointerReleased="InputElement_OnPointerReleased" TextWrapping="Wrap"  FontSize="20" FontWeight="Bold" Margin="10" Text="GitHub: https://github.com/239573049/Translate"></TextBlock>
+  </StackPanel>
+</UserControl>
