@@ -1,11 +1,13 @@
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 using Avalonia.Controls;
 using Avalonia.Controls.Notifications;
 using Avalonia.Input;
 using Avalonia.Interactivity;
+using Avalonia.Media.Imaging;
 using Token.Translate.Models;
 using Token.Translate.Options;
 using Token.Translate.Services;
@@ -49,8 +51,26 @@ public partial class HomeWindow : Window, IDisposable
                             home.Hide();
                         }
                     }
+                    else if (key == VirtualKeyCodes.Q)
+                    {
+
+                        var bytes = WindowScreenService.GetScreen();
+
+                        var screen = new Views.ScreenWindow()
+                        {
+                            DataContext = new ScreenWindowViewModel()
+                            {
+                                Bytes = bytes,
+                                Source = new Bitmap(new MemoryStream(bytes)),
+                            }
+                        };
+
+                        screen.Show();
+                    }
                 }
             };
+
+
 
         this.Closing += MainWindow_Closing;
     }
@@ -187,7 +207,7 @@ public partial class HomeWindow : Window, IDisposable
         ResultTextBox.SelectAll();
 
         // 自动Copy?
-        // ResultTextBox.Copy();
+        ResultTextBox.Copy();
     }
 
 

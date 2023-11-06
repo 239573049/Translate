@@ -18,7 +18,15 @@
   <Border BorderThickness="3" BorderBrush="Blue" >
     <Panel>
       <Image PointerMoved="InputElement_OnPointerMoved" PointerPressed="Image_OnPointerPressed" PointerReleased="InputElement_OnPointerReleased" Source="{Binding Source}"></Image>
-      <Border HorizontalAlignment="Left" VerticalAlignment="Top" IsVisible="False" BorderThickness="3" BorderBrush="Blue"  Name="Border"></Border>
+      <Border HorizontalAlignment="Left" VerticalAlignment="Top" IsVisible="False" BorderThickness="3" BorderBrush="Blue"  Name="Border">
+      <StackPanel Name="TextStackPanel">
+        <StackPanel.Styles>
+          <Style Selector="TextBlock">
+            <Setter Property="Foreground" Value="Blue"></Setter>
+          </Style>
+        </StackPanel.Styles>
+      </StackPanel>
+      </Border>
     </Panel>
   </Border>
 </Window>

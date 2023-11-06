@@ -1,18 +1,22 @@
-using System;
 using Avalonia;
 using Avalonia.Controls;
 using Avalonia.Input;
+using Avalonia.Threading;
+using OpenCvSharp;
+using Sdcb.PaddleInference;
+using Sdcb.PaddleOCR;
+using Sdcb.PaddleOCR.Models.Local;
+using System;
+using System.Collections.Generic;
 using System.Diagnostics;
 using System.Drawing;
 using System.Drawing.Imaging;
 using System.IO;
-using System.Net.Http;
-using OpenCvSharp;
-using Sdcb.PaddleInference;
-using Sdcb.PaddleOCR;
-using Sdcb.PaddleOCR.Models;
-using Sdcb.PaddleOCR.Models.Online;
+using System.Threading.Tasks;
+using Token.Translate.Options;
+using Token.Translate.Services;
 using Token.Translate.ViewModels;
+using Translate;
 using Point = Avalonia.Point;
 using Window = Avalonia.Controls.Window;
 
@@ -26,7 +30,7 @@ public partial class ScreenWindow : Window
     public ScreenWindow()
     {
         InitializeComponent();
-
+        
         this.WindowState = WindowState.FullScreen;
 
         KeyDown += MainWindow_KeyDown;
@@ -50,51 +54,79 @@ public partial class ScreenWindow : Window
         Border.Height = 0;
         Border.Margin = new Thickness(_startPoint.X, _startPoint.Y, 0, 0);
         start = true;
-        Debug.WriteLine(_startPoint.X + " " + _startPoint.Y);
+
+        TextStackPanel.Children.Clear();
     }
 
     private async void InputElement_OnPointerReleased(object? sender, PointerReleasedEventArgs e)
     {
+
+        TextStackPanel.Children.Add(new ProgressBar()
+        {
+            Classes = { new string("circular") },
+            IsIndeterminate = true,
+            IsVisible = true,
+        });
+
         start = false;
 
         var startX = Border.Margin.Left;
         var startY = Border.Margin.Top;
         var endX = Border.Width;
         var endY = Border.Height;
-        try
+
+        using var bit = new Bitmap(new MemoryStream(ViewModel.Bytes));
+
+        var options = TranslateContext.GetService<SystemOptions>();
+        var translateService =
+            TranslateContext.GetKeyedService<ITranslateService>(options.LanguageService);
+
+        await Task.Run(async () =>
         {
 
-            var bit = new Bitmap(new MemoryStream(ViewModel.Bytes));
-
-            // 创建一个新的Bitmap对象来存储裁剪后的图像
-            Bitmap croppedImage = bit.Clone(new Rectangle((int)startX, (int)startY, (int)endX, (int)endY), bit.PixelFormat);
-
-            using var stream = new MemoryStream();
-            croppedImage.Save(stream, ImageFormat.Png);
-
-            FullOcrModel model = await OnlineFullModels.EnglishV3.DownloadAsync();
-
-
-            using PaddleOcrAll all = new PaddleOcrAll(model, PaddleDevice.Mkldnn())
+            try
             {
-                AllowRotateDetection = false, /* 允许识别有角度的文字 */
-                Enable180Classification = false, /* 允许识别旋转角度大于90度的文字 */
-            };
 
-            using Mat src = Cv2.ImDecode(stream.ToArray(), ImreadModes.Color);
-            PaddleOcrResult result = all.Run(src);
-            Console.WriteLine("Detected all texts: \n" + result.Text);
-            foreach (PaddleOcrResultRegion region in result.Regions)
-            {
-                Console.WriteLine($"Text: {region.Text}, Score: {region.Score}, RectCenter: {region.Rect.Center}, RectSize:    {region.Rect.Size}, Angle: {region.Rect.Angle}");
+                // 创建一个新的Bitmap对象来存储裁剪后的图像
+                using Bitmap croppedImage = bit.Clone(new Rectangle((int)startX, (int)startY, (int)endX, (int)endY),
+                    bit.PixelFormat);
+
+                using var stream = new MemoryStream();
+                croppedImage.Save(stream, ImageFormat.Png);
+
+                using PaddleOcrAll all = new(LocalFullModels.ChineseV4, PaddleDevice.Mkldnn())
+                {
+                    AllowRotateDetection = true, /* 允许识别有角度的文字 */
+                    Enable180Classification = false, /* 允许识别旋转角度大于90度的文字 */
+                };
+
+                using Mat src = Cv2.ImDecode(stream.ToArray(), ImreadModes.Color);
+                PaddleOcrResult result = all.Run(src);
+                var data = new List<string>();
+                foreach (var region in result.Regions)
+                {
+                    var value = await translateService.ExecuteAsync(region.Text);
+                    data.Add(value.Result);
+                }
+
+                Dispatcher.UIThread.Invoke(() =>
+                {
+                    TextStackPanel.Children.Clear();
+                    foreach (var region in data)
+                    {
+                        TextStackPanel.Children.Add(new TextBlock()
+                        {
+                            Text = region,
+                        });
+                    }
+                });
+
             }
-        }
-        catch (Exception exception)
-        {
-            Console.WriteLine(exception);
-        }
-
-        //ViewModel.Source = new Avalonia.Media.Imaging.Bitmap(new MemoryStream(stream.ToArray()));
+            catch (Exception exception)
+            {
+                Debug.WriteLine(exception);
+            }
+        });
     }
 
     private void InputElement_OnPointerMoved(object? sender, PointerEventArgs e)

@@ -24,10 +24,6 @@ public class YoudaoTranslateService(IHttpClientFactory httpClientFactory) : ITra
     {
         var systemOptions = TranslateContext.GetService<SystemOptions>();
 
-
-        var uri = systemOptions.MicrosoftEndpoint.TrimEnd('/') + "/translate?api-version=3.0&to=" +
-                  systemOptions.TargetLanguage;
-
         string targe;
         string language;
         if (systemOptions.TranslationChineseAndEnglish)

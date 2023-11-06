@@ -1,7 +1,7 @@
 ﻿using System.Threading.Tasks;
 using Translate.Models;
 
-namespace Translate.Services;
+namespace Token.Translate.Services;
 
 public interface ITranslateService
 {
