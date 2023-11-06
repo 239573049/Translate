@@ -26,6 +26,8 @@ public partial class HomeWindow : Window, IDisposable
     {
         InitializeComponent();
 
+        WindowScreenService.Init(this.Screens.Primary);
+
         _keyboardHookService = TranslateContext.GetService<IKeyboardHookService>();
         _keyboardHookService?.Start();
 

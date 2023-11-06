@@ -34,6 +34,7 @@
         <TrayIcon.Menu>
           <NativeMenu>
             <NativeMenuItem Icon="../Assets/home-64.png" Click="OpenHome_OnClick" Header="首页"   />
+            <NativeMenuItem Icon="../Assets/setting.png" Click="NativeMenuItem_OnClick" Header="截图翻译"   />
             <NativeMenuItem Icon="../Assets/setting.png" Click="OpenSetting_OnClick" Header="系统设置"   />
             <NativeMenuItemSeparator />
             <NativeMenuItem Icon="../Assets/exit.png" Header="退出程序"  Click="Exit_OnClick"/>

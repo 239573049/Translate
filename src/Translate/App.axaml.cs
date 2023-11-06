@@ -1,6 +1,10 @@
 using Avalonia;
+using Avalonia.Controls;
 using Avalonia.Controls.ApplicationLifetimes;
 using Avalonia.Markup.Xaml;
+using Avalonia.Media.Imaging;
+using Avalonia.Media;
+using Avalonia.Platform;
 using Microsoft.Extensions.DependencyInjection;
 using System;
 using System.Collections.Generic;
@@ -113,5 +117,21 @@ public partial class App : Application
     {
         var home = TranslateContext.GetService<HomeWindow>();
         home.Show();
+    }
+
+    private void NativeMenuItem_OnClick(object? sender, EventArgs e)
+    {
+        var bytes = WindowScreenService.GetScreen();
+
+        var screen = new Views.ScreenWindow()
+        {
+            DataContext = new ScreenWindowViewModel()
+            {
+                Bytes = bytes,
+                Source = new Bitmap(new MemoryStream(bytes)),
+            }
+        };
+
+        screen.Show();
     }
 }

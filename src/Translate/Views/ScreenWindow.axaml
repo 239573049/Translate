@@ -1,0 +1,24 @@
+<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:viewModels="clr-namespace:Token.Translate.ViewModels"
+        mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+        x:Class="Token.Translate.Views.ScreenWindow"
+        Title="ScreenWindow"
+        RequestedThemeVariant="Dark"
+        TransparencyLevelHint="AcrylicBlur"
+        ExtendClientAreaToDecorationsHint="True"
+        Background="Transparent"
+        WindowStartupLocation="CenterScreen"
+        x:DataType="viewModels:ScreenWindowViewModel">
+  <Design.DataContext>
+    <viewModels:ScreenWindowViewModel />
+  </Design.DataContext>
+  <Border BorderThickness="3" BorderBrush="Blue" >
+    <Panel>
+      <Image PointerMoved="InputElement_OnPointerMoved" PointerPressed="Image_OnPointerPressed" PointerReleased="InputElement_OnPointerReleased" Source="{Binding Source}"></Image>
+      <Border HorizontalAlignment="Left" VerticalAlignment="Top" IsVisible="False" BorderThickness="3" BorderBrush="Blue"  Name="Border"></Border>
+    </Panel>
+  </Border>
+</Window>
