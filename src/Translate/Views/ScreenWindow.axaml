@@ -22,7 +22,7 @@
       <StackPanel Name="TextStackPanel">
         <StackPanel.Styles>
           <Style Selector="TextBlock">
-            <Setter Property="Foreground" Value="Blue"></Setter>
+            <Setter Property="Foreground" Value="AliceBlue"></Setter>
           </Style>
         </StackPanel.Styles>
       </StackPanel>

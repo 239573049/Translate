@@ -3,19 +3,17 @@ using Avalonia.Controls;
 using Avalonia.Input;
 using Avalonia.Threading;
 using DynamicData;
-using Microsoft.Extensions.Options;
 using OpenCvSharp;
 using Sdcb.PaddleInference;
 using Sdcb.PaddleOCR;
-using Sdcb.PaddleOCR.Models.Local;
-using SkiaSharp;
+using Sdcb.PaddleOCR.Models;
+using Sdcb.PaddleOCR.Models.Online;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Drawing;
 using System.Drawing.Imaging;
 using System.IO;
-using System.Linq;
 using System.Threading.Tasks;
 using Token.Translate.Options;
 using Token.Translate.Services;
@@ -97,11 +95,12 @@ public partial class ScreenWindow : Window
 
                 using var stream = new MemoryStream();
                 croppedImage.Save(stream, ImageFormat.Png);
+                FullOcrModel model = await OnlineFullModels.ChineseServerV4.DownloadAsync();
 
-                using PaddleOcrAll all = new(LocalFullModels.ChineseV4, PaddleDevice.Mkldnn())
+                using PaddleOcrAll all = new(model, PaddleDevice.Gpu())
                 {
                     AllowRotateDetection = true, /* 允许识别有角度的文字 */
-                    Enable180Classification = false, /* 允许识别旋转角度大于90度的文字 */
+                    Enable180Classification = true, /* 允许识别旋转角度大于90度的文字 */
                 };
 
                 using Mat src = Cv2.ImDecode(stream.ToArray(), ImreadModes.Color);
